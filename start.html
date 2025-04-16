@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Start Petition – HabeasNow</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Petition – HabeasNow (ZIP Lookup)</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
@@ -23,41 +23,63 @@
   <main>
     <section class="hero">
       <h2>Start an Emergency Petition</h2>
-      <p>Answer a few questions. We'll generate the right document.</p>
+      <p>Enter details and we’ll suggest the right court.</p>
     </section>
 
     <section class="content">
       <form id="petition-form">
-        <label for="name">Name of Person Detained:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+        <label for="zip">ZIP Code (US only):</label><br>
+        <input type="text" id="zip" name="zip" maxlength="5" pattern="\d{5}" required><br><br>
 
-        <label for="age">Age (if known):</label><br>
-        <input type="number" id="age" name="age"><br><br>
-
-        <label for="location">Where were they detained?</label><br>
-        <input type="text" id="location" name="location" required><br><br>
-
-        <label for="date">When did it happen?</label><br>
-        <input type="date" id="date" name="date"><br><br>
-
-        <label for="details">What happened? (Brief summary)</label><br>
-        <textarea id="details" name="details" rows="5" required></textarea><br><br>
+        <div id="zip-result" style="border:1px solid #ccc; padding:1rem; display:none;"></div><br>
 
         <button type="submit">Generate Document</button>
       </form>
 
-      <p style="margin-top: 2rem;">🔒 <em>This form does not store any data. Your information remains private until you choose to export it.</em></p>
+      <p style="margin-top: 2rem;">🔒 <em>This tool does not store any data. All lookup is done in your browser.</em></p>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 HabeasNow.org. This tool is open-source and privacy-first.</p>
+    <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
   </footer>
 
   <script>
+    const zipToCourt = {
+      "10001": {
+        court: "U.S. District Court for the Southern District of New York",
+        link: "https://nysd.uscourts.gov"
+      },
+      "90001": {
+        court: "U.S. District Court for the Central District of California",
+        link: "https://www.cacd.uscourts.gov"
+      },
+      "77001": {
+        court: "U.S. District Court for the Southern District of Texas",
+        link: "https://www.txs.uscourts.gov"
+      }
+      // More mappings can be added here
+    };
+
+    document.getElementById("zip").addEventListener("input", function () {
+      const zip = this.value;
+      const resultBox = document.getElementById("zip-result");
+      if (zip.length === 5 && zipToCourt[zip]) {
+        const court = zipToCourt[zip];
+        resultBox.innerHTML = `<strong>Suggested Court:</strong> ${court.court}<br>
+                               <a href="${court.link}" target="_blank">${court.link}</a>`;
+        resultBox.style.display = "block";
+      } else if (zip.length === 5) {
+        resultBox.innerHTML = "<em>We don't have court info for that ZIP yet.</em>";
+        resultBox.style.display = "block";
+      } else {
+        resultBox.style.display = "none";
+      }
+    });
+
     document.getElementById('petition-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('📄 Petition generator coming soon. Your form has been captured (but not stored).');
+      alert('📄 Petition generation coming soon. ZIP has been matched (if available).');
     });
   </script>
 </body>
