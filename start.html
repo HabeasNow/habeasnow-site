@@ -64,10 +64,33 @@
         <label>Docket Number:</label><br><input type="text" name="docket"><br><br>
         <label>Date of Sentencing:</label><br><input type="date" name="sentencing_date"><br><br>
 
-        <h3>5. Grounds for Relief</h3>
-        <label>Ground One:</label><br><textarea name="ground1" required></textarea><br><br>
-        <label>Presented Before? (Yes/No):</label><br><input type="text" name="ground1_prior"><br><br>
+        <section id="grounds-for-relief">
+  <h3>5. Grounds for Relief</h3>
+  <p><em>Please review and check all statements that apply. These are grouped by role to guide your selections.</em></p>
 
+  <fieldset>
+    <legend>👪 <strong>Family Member / Friend:</strong> Choose this if you are filing on behalf of a loved one</legend>
+    <label><input type="checkbox" name="grounds_family" value="1"> My family member is a U.S. citizen detained under threat of being secretly removed from the United States or already transferred to a foreign facility, without charges or judicial review.</label><br>
+    <label><input type="checkbox" name="grounds_family" value="2"> I have reason to believe the U.S. government is detaining them without due process, legal representation, or an opportunity to appear before a judge.</label><br>
+    <label><input type="checkbox" name="grounds_family" value="3"> Their detention and/or transfer violates constitutional rights including the right to due process (Fifth Amendment) and the right to challenge their detention through habeas corpus (Suspension Clause).</label><br>
+    <label><input type="checkbox" name="grounds_family" value="4"> Conditions of detention may rise to the level of cruel and unusual punishment in violation of the Eighth Amendment.</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>⚖️ <strong>Attorney:</strong> Choose this if you are an attorney representing the detainee</legend>
+    <label><input type="checkbox" name="grounds_attorney" value="1"> My client, a U.S. citizen, is being held or has been transferred abroad without lawful authority, without indictment, arraignment, or access to the courts, violating Fifth Amendment due process protections.</label><br>
+    <label><input type="checkbox" name="grounds_attorney" value="2"> The detention undermines the Suspension Clause by denying access to habeas corpus and evading judicial oversight.</label><br>
+    <label><input type="checkbox" name="grounds_attorney" value="3"> The executive branch has acted ultra vires, without statutory or congressional authorization, contrary to <em>Valentine v. United States</em>, 299 U.S. 5 (1936).</label><br>
+    <label><input type="checkbox" name="grounds_attorney" value="4"> The conditions under which my client is being held are constitutionally impermissible and violate the Eighth Amendment.</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>🕊️ <strong>Third-Party Advocate:</strong> Choose this if you are filing to protect another person’s rights</legend>
+    <label><input type="checkbox" name="grounds_advocate" value="1"> I am not a relative or attorney, but I have credible, specific information that this individual is being held unlawfully, possibly under executive authority, without access to courts or counsel.</label><br>
+    <label><input type="checkbox" name="grounds_advocate" value="2"> I believe this person’s detention involves serious constitutional violations and urgent risk of transfer beyond the reach of U.S. jurisdiction.</label><br>
+    <label><input type="checkbox" name="grounds_advocate" value="3"> I respectfully request the Court act immediately to preserve their right to legal relief and protect them from extrajudicial removal.</label>
+  </fieldset>
+</section>
         <label>Ground Two:</label><br><textarea name="ground2"></textarea><br><br>
         <label>Presented Before? (Yes/No):</label><br><input type="text" name="ground2_prior"><br><br>
 
