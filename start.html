@@ -94,9 +94,28 @@
         <label>Ground Two:</label><br><textarea name="ground2"></textarea><br><br>
         <label>Presented Before? (Yes/No):</label><br><input type="text" name="ground2_prior"><br><br>
 
-        <h3>6. Relief Sought</h3>
-        <label>Requested Relief:</label><br><textarea name="relief" required></textarea><br><br>
+       <h3>6. Requested Relief</h3>
+<p><em>Please check all that apply. These are grouped by role. You may select more than one.</em></p>
 
+<fieldset>
+  <legend>👪 <strong>Family Member / Friend:</strong></legend>
+  <label><input type="checkbox" name="relief_family" value="1"> We respectfully ask the Court to issue an emergency writ of habeas corpus to locate and bring our loved one back under U.S. legal protection.</label><br>
+  <label><input type="checkbox" name="relief_family" value="2"> We ask the Court to prevent any further transfer or removal of our loved one from U.S. jurisdiction.</label><br>
+  <label><input type="checkbox" name="relief_family" value="3"> We request that the Court declare this detention unlawful and ensure access to legal counsel and judicial review.</label>
+</fieldset>
+
+<fieldset>
+  <legend>⚖️ <strong>Attorney:</strong></legend>
+  <label><input type="checkbox" name="relief_attorney" value="1"> Issue a writ of habeas corpus compelling the return of my client to U.S. jurisdiction.</label><br>
+  <label><input type="checkbox" name="relief_attorney" value="2"> Declare the executive branch’s detention and/or transfer policy unconstitutional and enjoin future removals without judicial authorization.</label><br>
+  <label><input type="checkbox" name="relief_attorney" value="3"> Grant declaratory and injunctive relief preventing further unconstitutional detention or transfer.</label>
+</fieldset>
+
+<fieldset>
+  <legend>🕊️ <strong>Third-Party Advocate:</strong></legend>
+  <label><input type="checkbox" name="relief_advocate" value="1"> I ask the Court to preserve this person’s access to the legal system and prevent their removal from the United States or from U.S. control.</label><br>
+  <label><input type="checkbox" name="relief_advocate" value="2"> I request that the Court take immediate action to assess the legality of their detention and offer protective relief.</label>
+</fieldset>
         <h3>7. Additional Information</h3>
         <label>Other Relevant Info:</label><br><textarea name="additional"></textarea><br><br>
 
