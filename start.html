@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start Petition – HabeasNow</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>HabeasNow</h1>
+    <p class="tagline">Emergency Legal Toolkit</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="start.html" class="active">Start Petition</a>
+      <a href="families.html">For Families</a>
+      <a href="lawyers.html">For Lawyers</a>
+      <a href="how.html">How It Works</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Start an Emergency Petition</h2>
+      <p>Answer a few questions. We'll generate the right document.</p>
+    </section>
+
+    <section class="content">
+      <form id="petition-form">
+        <label for="name">Name of Person Detained:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="age">Age (if known):</label><br>
+        <input type="number" id="age" name="age"><br><br>
+
+        <label for="location">Where were they detained?</label><br>
+        <input type="text" id="location" name="location" required><br><br>
+
+        <label for="date">When did it happen?</label><br>
+        <input type="date" id="date" name="date"><br><br>
+
+        <label for="details">What happened? (Brief summary)</label><br>
+        <textarea id="details" name="details" rows="5" required></textarea><br><br>
+
+        <button type="submit">Generate Document</button>
+      </form>
+
+      <p style="margin-top: 2rem;">🔒 <em>This form does not store any data. Your information remains private until you choose to export it.</em></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HabeasNow.org. This tool is open-source and privacy-first.</p>
+  </footer>
+
+  <script>
+    document.getElementById('petition-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('📄 Petition generator coming soon. Your form has been captured (but not stored).');
+    });
+  </script>
+</body>
+</html>
