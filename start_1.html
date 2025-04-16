@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO 242 Habeas Petition</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>HabeasNow</h1>
+    <p class="tagline">Emergency Legal Toolkit – AO 242 Petition</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="start.html" class="active">Start Petition</a>
+      <a href="families.html">For Families</a>
+      <a href="lawyers.html">For Lawyers</a>
+      <a href="how.html">How It Works</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>AO 242: Petition for Writ of Habeas Corpus (28 U.S.C. § 2241)</h2>
+      <p>Please complete the following fields. This tool helps prepare a draft for court filing.</p>
+    </section>
+
+    <section class="content">
+      <form id="ao242-form">
+        <h3>1. Personal Information</h3>
+        <label>Full Name:</label><br><input type="text" name="fullname" required><br><br>
+        <label>Other Names Used:</label><br><input type="text" name="othernames"><br><br>
+        <label>Place of Confinement:</label><br><input type="text" name="facility" required><br><br>
+        <label>Facility Address:</label><br><textarea name="facility_address" required></textarea><br><br>
+        <label>Prisoner ID Number:</label><br><input type="text" name="id_number"><br><br>
+
+        <h3>2. Custody Details</h3>
+        <label>Custodian (Warden/ICE/etc.):</label><br><input type="text" name="custodian" required><br><br>
+        <label>Status:</label><br>
+        <select name="status" required>
+          <option value="">Choose...</option>
+          <option>Pretrial Detainee</option>
+          <option>Serving a Sentence</option>
+          <option>Immigration Detention</option>
+          <option>Other</option>
+        </select><br><br>
+
+        <h3>3. Decision or Action Being Challenged</h3>
+        <label>Nature of Challenge:</label><br>
+        <select name="challenge" required>
+          <option value="">Choose...</option>
+          <option>Sentence Calculation or Execution</option>
+          <option>Pretrial Detention</option>
+          <option>Immigration Detention</option>
+          <option>Detainer</option>
+          <option>Validity of Conviction or Sentence</option>
+          <option>Disciplinary Proceedings</option>
+          <option>Other</option>
+        </select><br><br>
+
+        <h3>4. Case History</h3>
+        <label>Sentencing Court:</label><br><input type="text" name="court"><br><br>
+        <label>Docket Number:</label><br><input type="text" name="docket"><br><br>
+        <label>Date of Sentencing:</label><br><input type="date" name="sentencing_date"><br><br>
+
+        <section id="grounds-for-relief">
+  <h3>5. Grounds for Relief</h3>
+  <p><em>Please review and check all statements that apply. These are grouped by role to guide your selections.</em></p>
+
+  <fieldset>
+    <legend>👪 <strong>Family Member / Friend:</strong> Choose this if you are filing on behalf of a loved one</legend>
+    <label><input type="checkbox" name="grounds_family" value="1"> My family member is a U.S. citizen detained under threat of being secretly removed from the United States or already transferred to a foreign facility, without charges or judicial review.</label><br>
+    <label><input type="checkbox" name="grounds_family" value="2"> I have reason to believe the U.S. government is detaining them without due process, legal representation, or an opportunity to appear before a judge.</label><br>
+    <label><input type="checkbox" name="grounds_family" value="3"> Their detention and/or transfer violates constitutional rights including the right to due process (Fifth Amendment) and the right to challenge their detention through habeas corpus (Suspension Clause).</label><br>
+    <label><input type="checkbox" name="grounds_family" value="4"> Conditions of detention may rise to the level of cruel and unusual punishment in violation of the Eighth Amendment.</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>⚖️ <strong>Attorney:</strong> Choose this if you are an attorney representing the detainee</legend>
+    <label><input type="checkbox" name="grounds_attorney" value="1"> My client, a U.S. citizen, is being held or has been transferred abroad without lawful authority, without indictment, arraignment, or access to the courts, violating Fifth Amendment due process protections.</label><br>
+    <label><input type="checkbox" name="grounds_attorney" value="2"> The detention undermines the Suspension Clause by denying access to habeas corpus and evading judicial oversight.</label><br>
+    <label><input type="checkbox" name="grounds_attorney" value="3"> The executive branch has acted ultra vires, without statutory or congressional authorization, contrary to <em>Valentine v. United States</em>, 299 U.S. 5 (1936).</label><br>
+    <label><input type="checkbox" name="grounds_attorney" value="4"> The conditions under which my client is being held are constitutionally impermissible and violate the Eighth Amendment.</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>🕊️ <strong>Third-Party Advocate:</strong> Choose this if you are filing to protect another person’s rights</legend>
+    <label><input type="checkbox" name="grounds_advocate" value="1"> I am not a relative or attorney, but I have credible, specific information that this individual is being held unlawfully, possibly under executive authority, without access to courts or counsel.</label><br>
+    <label><input type="checkbox" name="grounds_advocate" value="2"> I believe this person’s detention involves serious constitutional violations and urgent risk of transfer beyond the reach of U.S. jurisdiction.</label><br>
+    <label><input type="checkbox" name="grounds_advocate" value="3"> I respectfully request the Court act immediately to preserve their right to legal relief and protect them from extrajudicial removal.</label>
+  </fieldset>
+</section>
+        <label>Ground Two:</label><br><textarea name="ground2"></textarea><br><br>
+        <label>Presented Before? (Yes/No):</label><br><input type="text" name="ground2_prior"><br><br>
+
+       <h3>6. Requested Relief</h3>
+<p><em>Please check all that apply. These are grouped by role. You may select more than one.</em></p>
+
+<fieldset>
+  <legend>👪 <strong>Family Member / Friend:</strong></legend>
+  <label><input type="checkbox" name="relief_family" value="1"> We respectfully ask the Court to issue an emergency writ of habeas corpus to locate and bring our loved one back under U.S. legal protection.</label><br>
+  <label><input type="checkbox" name="relief_family" value="2"> We ask the Court to prevent any further transfer or removal of our loved one from U.S. jurisdiction.</label><br>
+  <label><input type="checkbox" name="relief_family" value="3"> We request that the Court declare this detention unlawful and ensure access to legal counsel and judicial review.</label>
+</fieldset>
+
+<fieldset>
+  <legend>⚖️ <strong>Attorney:</strong></legend>
+  <label><input type="checkbox" name="relief_attorney" value="1"> Issue a writ of habeas corpus compelling the return of my client to U.S. jurisdiction.</label><br>
+  <label><input type="checkbox" name="relief_attorney" value="2"> Declare the executive branch’s detention and/or transfer policy unconstitutional and enjoin future removals without judicial authorization.</label><br>
+  <label><input type="checkbox" name="relief_attorney" value="3"> Grant declaratory and injunctive relief preventing further unconstitutional detention or transfer.</label>
+</fieldset>
+
+<fieldset>
+  <legend>🕊️ <strong>Third-Party Advocate:</strong></legend>
+  <label><input type="checkbox" name="relief_advocate" value="1"> I ask the Court to preserve this person’s access to the legal system and prevent their removal from the United States or from U.S. control.</label><br>
+  <label><input type="checkbox" name="relief_advocate" value="2"> I request that the Court take immediate action to assess the legality of their detention and offer protective relief.</label>
+</fieldset>
+        <h3>7. Additional Information</h3>
+        <label>Other Relevant Info:</label><br><textarea name="additional"></textarea><br><br>
+
+        <h3>8. Declaration</h3>
+        <label>Date:</label><br><input type="date" name="date" required><br><br>
+        <label>Signature (type your name):</label><br><input type="text" name="signature" required><br><br>
+
+        <button type="submit">Submit and Preview Draft</button>
+      </form>
+
+      <p style="margin-top: 2rem;">🔒 <em>This form does not store any data. Your responses stay on your device unless you export them.</em></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
+  </footer>
+
+  <script>
+    document.getElementById('ao242-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('📄 AO 242 draft generation coming soon. Form data is kept in your browser.');
+    });
+  </script>
+</body>
+</html>
