@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Start Petition – HabeasNow (ZIP Lookup)</title>
+  <title>AO 242 Habeas Petition</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>HabeasNow</h1>
-    <p class="tagline">Emergency Legal Toolkit</p>
+    <p class="tagline">Emergency Legal Toolkit – AO 242 Petition</p>
     <nav>
       <a href="index.html">Home</a>
       <a href="start.html" class="active">Start Petition</a>
@@ -22,21 +22,69 @@
 
   <main>
     <section class="hero">
-      <h2>Start an Emergency Petition</h2>
-      <p>Enter details and we’ll suggest the right court.</p>
+      <h2>AO 242: Petition for Writ of Habeas Corpus (28 U.S.C. § 2241)</h2>
+      <p>Please complete the following fields. This tool helps prepare a draft for court filing.</p>
     </section>
 
     <section class="content">
-      <form id="petition-form">
-        <label for="zip">ZIP Code (US only):</label><br>
-        <input type="text" id="zip" name="zip" maxlength="5" pattern="\d{5}" required><br><br>
+      <form id="ao242-form">
+        <h3>1. Personal Information</h3>
+        <label>Full Name:</label><br><input type="text" name="fullname" required><br><br>
+        <label>Other Names Used:</label><br><input type="text" name="othernames"><br><br>
+        <label>Place of Confinement:</label><br><input type="text" name="facility" required><br><br>
+        <label>Facility Address:</label><br><textarea name="facility_address" required></textarea><br><br>
+        <label>Prisoner ID Number:</label><br><input type="text" name="id_number"><br><br>
 
-        <div id="zip-result" style="border:1px solid #ccc; padding:1rem; display:none;"></div><br>
+        <h3>2. Custody Details</h3>
+        <label>Custodian (Warden/ICE/etc.):</label><br><input type="text" name="custodian" required><br><br>
+        <label>Status:</label><br>
+        <select name="status" required>
+          <option value="">Choose...</option>
+          <option>Pretrial Detainee</option>
+          <option>Serving a Sentence</option>
+          <option>Immigration Detention</option>
+          <option>Other</option>
+        </select><br><br>
 
-        <button type="submit">Generate Document</button>
+        <h3>3. Decision or Action Being Challenged</h3>
+        <label>Nature of Challenge:</label><br>
+        <select name="challenge" required>
+          <option value="">Choose...</option>
+          <option>Sentence Calculation or Execution</option>
+          <option>Pretrial Detention</option>
+          <option>Immigration Detention</option>
+          <option>Detainer</option>
+          <option>Validity of Conviction or Sentence</option>
+          <option>Disciplinary Proceedings</option>
+          <option>Other</option>
+        </select><br><br>
+
+        <h3>4. Case History</h3>
+        <label>Sentencing Court:</label><br><input type="text" name="court"><br><br>
+        <label>Docket Number:</label><br><input type="text" name="docket"><br><br>
+        <label>Date of Sentencing:</label><br><input type="date" name="sentencing_date"><br><br>
+
+        <h3>5. Grounds for Relief</h3>
+        <label>Ground One:</label><br><textarea name="ground1" required></textarea><br><br>
+        <label>Presented Before? (Yes/No):</label><br><input type="text" name="ground1_prior"><br><br>
+
+        <label>Ground Two:</label><br><textarea name="ground2"></textarea><br><br>
+        <label>Presented Before? (Yes/No):</label><br><input type="text" name="ground2_prior"><br><br>
+
+        <h3>6. Relief Sought</h3>
+        <label>Requested Relief:</label><br><textarea name="relief" required></textarea><br><br>
+
+        <h3>7. Additional Information</h3>
+        <label>Other Relevant Info:</label><br><textarea name="additional"></textarea><br><br>
+
+        <h3>8. Declaration</h3>
+        <label>Date:</label><br><input type="date" name="date" required><br><br>
+        <label>Signature (type your name):</label><br><input type="text" name="signature" required><br><br>
+
+        <button type="submit">Submit and Preview Draft</button>
       </form>
 
-      <p style="margin-top: 2rem;">🔒 <em>This tool does not store any data. All lookup is done in your browser.</em></p>
+      <p style="margin-top: 2rem;">🔒 <em>This form does not store any data. Your responses stay on your device unless you export them.</em></p>
     </section>
   </main>
 
@@ -45,41 +93,9 @@
   </footer>
 
   <script>
-    const zipToCourt = {
-      "10001": {
-        court: "U.S. District Court for the Southern District of New York",
-        link: "https://nysd.uscourts.gov"
-      },
-      "90001": {
-        court: "U.S. District Court for the Central District of California",
-        link: "https://www.cacd.uscourts.gov"
-      },
-      "77001": {
-        court: "U.S. District Court for the Southern District of Texas",
-        link: "https://www.txs.uscourts.gov"
-      }
-      // More mappings can be added here
-    };
-
-    document.getElementById("zip").addEventListener("input", function () {
-      const zip = this.value;
-      const resultBox = document.getElementById("zip-result");
-      if (zip.length === 5 && zipToCourt[zip]) {
-        const court = zipToCourt[zip];
-        resultBox.innerHTML = `<strong>Suggested Court:</strong> ${court.court}<br>
-                               <a href="${court.link}" target="_blank">${court.link}</a>`;
-        resultBox.style.display = "block";
-      } else if (zip.length === 5) {
-        resultBox.innerHTML = "<em>We don't have court info for that ZIP yet.</em>";
-        resultBox.style.display = "block";
-      } else {
-        resultBox.style.display = "none";
-      }
-    });
-
-    document.getElementById('petition-form').addEventListener('submit', function(e) {
+    document.getElementById('ao242-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('📄 Petition generation coming soon. ZIP has been matched (if available).');
+      alert('📄 AO 242 draft generation coming soon. Form data is kept in your browser.');
     });
   </script>
 </body>
