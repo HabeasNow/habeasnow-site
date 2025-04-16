@@ -31,7 +31,54 @@ nav a.active {
   background: #eee;
   text-align: center;
 }
+/* GENERAL FIELDSET STYLES */
+fieldset {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
 
+/* LEGEND STYLING (section headers) */
+legend {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  padding: 0 4px;
+}
+
+/* LABELS FOR CHECKBOXES */
+label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  cursor: pointer;
+  color: #222;
+}
+
+/* CHECKBOXES */
+input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  accent-color: #005fa3; /* Calm but clear blue */
+}
+
+/* HEADINGS */
+h3 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+/* SMALL PRINT / GUIDANCE */
+p em {
+  font-size: 0.9rem;
+  color: #666;
+}
 .content {
   padding: 2rem;
   max-width: 800px;
