@@ -124,24 +124,29 @@ footer {
   padding: 1rem;
   margin-top: 2rem;
 }
-/* === Legal Grounds + Relief Checkboxes === */
+/* === Section 5 & 6: Legal Grounds + Relief Checkboxes (nested structure) === */
 
 fieldset label {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6em;
-  margin-bottom: 12px;
-  padding: 10px 12px;
-  background-color: #f9f9f9;
-  border-radius: 6px;
+  display: block;
+  background: #f9f9f9;
   border: 1px solid #ddd;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  line-height: 1.5;
   font-size: 0.97rem;
-  line-height: 1.4;
+  cursor: pointer;
 }
 
 fieldset input[type="checkbox"] {
-  margin-top: 4px;
-  transform: scale(1.2);
-  accent-color: #004080; /* calm and confident */
+  margin-right: 10px;
+  transform: scale(1.1);
+  vertical-align: top;
+  accent-color: #004080; /* calm blue */
+}
+
+/* Optional: Add hover effect for clarity */
+fieldset label:hover {
+  background: #f1f7fc;
+  border-color: #c0d8f0;
 }
