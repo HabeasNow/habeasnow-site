@@ -181,7 +181,19 @@
   <footer>
     <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
   </footer>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fallbackSelect = document.getElementById("fallback-district-select");
+    if (!fallbackSelect || !window.fallbackDistricts) return;
 
+    fallbackDistricts.forEach(entry => {
+      const option = document.createElement("option");
+      option.value = entry.value;
+      option.textContent = entry.label;
+      fallbackSelect.appendChild(option);
+    });
+  });
+</script>
 <script>
   const form = document.getElementById("qtef-form");
 
