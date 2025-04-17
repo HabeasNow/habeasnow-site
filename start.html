@@ -283,14 +283,16 @@ if (shouldIncludeTRO) {
     const buttons = document.createElement("div");
     buttons.style.marginTop = "20px";
 
-    const editBtn = document.createElement("button");
-    editBtn.textContent = "🔙 Go Back and Edit";
-    editBtn.onclick = () => {
-      preview.remove();
-      form.style.display = "block";
-    };
+   const editBtn = document.createElement("button");
+editBtn.textContent = "🔙 Go Back and Edit";
+editBtn.onclick = () => {
+  preview.remove();
+  form.style.display = "block";
+};
 
-   confirmBtn.onclick = () => {
+const confirmBtn = document.createElement("button");
+confirmBtn.textContent = "✅ Confirm and Generate Filing";
+confirmBtn.onclick = () => {
   const query = new URLSearchParams(new FormData(form)).toString();
   window.location.href = `printable.html?${query}`;
 };
