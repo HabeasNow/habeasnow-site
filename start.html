@@ -51,7 +51,12 @@
 <label>Last Known Location: <input type="text" name="last_location" required></label><br>
 <label>ZIP Code of Seizure or Last Known Location:
   <input type="text" name="zip_code" pattern="\d{5}" required>
-</label><br>
+</label><label>If you don’t know the ZIP code, select the nearest court:
+  <select name="fallback_district" id="fallback-district-select">
+    <option value="">Choose a federal district court...</option>
+  </select>
+</label><br><br>
+        
 <label>Date of Seizure or Last Contact: <input type="date" name="last_seen_date"></label><br>
         <label>Who Seized Them?
           <select name="arresting_agency">
