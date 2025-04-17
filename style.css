@@ -150,3 +150,55 @@ fieldset label:hover {
   background: #f1f7fc;
   border-color: #c0d8f0;
 }
+#preview {
+  background: #fefefe;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 2rem;
+  font-size: 1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#preview h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+#preview h3 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  color: #003366;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
+}
+
+#preview p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+#preview strong {
+  color: #222;
+}
+
+#preview em {
+  color: #888;
+}
+
+#preview button {
+  margin-right: 1rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background: #004080;
+  color: white;
+  cursor: pointer;
+}
+
+#preview button:hover {
+  background: #0060b0;
+}
