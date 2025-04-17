@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emergency Legal Action to Stop a Secret Transfer</title>
   <link rel="stylesheet" href="style.css">
+  <script src="fallbackDistricts.js" defer></script>
 </head>
 <body>
   <header>
@@ -29,21 +30,18 @@
 
     <section class="content">
       <form id="qtef-form">
-        <!-- Existing form content stays the same through Section 2 -->
-
+        <!-- ZIP and fallback court logic -->
         <label>ZIP Code of Seizure or Last Known Location:
           <input type="text" name="zip_code" id="zip_code" pattern="\d{5}" required>
         </label>
 
-        <!-- Display court info if found -->
         <div id="court-info"></div>
 
-        <!-- Fallback district court selector -->
         <div id="fallback-court-container" style="display:none;">
           <label>If ZIP not recognized, select court manually:
             <select id="fallback-court">
               <option value="">Select Court</option>
-              <!-- Populated dynamically from fallbackDistricts -->
+              <!-- Options are injected by fallbackDistricts.js -->
             </select>
           </label>
           <input type="hidden" name="court_district" id="fallback-court-district">
@@ -51,7 +49,7 @@
           <input type="hidden" name="court_location" id="fallback-court-location">
         </div>
 
-        <!-- Continue with the rest of your form... -->
+        <!-- Insert remainder of the full form content below (Sections 1–7, Legal Grounds, Requested Relief, Declaration, etc.) -->
 
       </form>
     </section>
@@ -60,7 +58,7 @@
   <footer>
     <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
   </footer>
-  <script src="fallbackDistricts.js"></script>
+
   <script>
     const courtMap = {
       "90001": {
@@ -69,17 +67,8 @@
         location: "350 W 1st St, Los Angeles, CA 90012",
         website: "https://www.cacd.uscourts.gov"
       },
-      // Add all your ZIP-mapped districts here...
+      // More ZIP mappings can be added here...
     };
-
-    const fallbackDistricts = [
-      { label: "District of Columbia – Washington, DC 20001", value: "20001" },
-      { label: "Northern District of Alabama – Birmingham, AL 35203", value: "35203" },
-      { label: "Middle District of Alabama – Montgomery, AL 36104", value: "36104" },
-      { label: "Southern District of Alabama – Mobile, AL 36602", value: "36602" },
-      { label: "District of Alaska – Anchorage, AK 99513", value: "99513" },
-      // Continue with remaining 89...
-    ];
 
     document.addEventListener("DOMContentLoaded", function () {
       const zipInput = document.getElementById("zip_code");
@@ -91,12 +80,14 @@
       const nameInput = document.getElementById("fallback-court-name");
       const locationInput = document.getElementById("fallback-court-location");
 
-      fallbackDistricts.forEach(court => {
-        const opt = document.createElement("option");
-        opt.value = court.value;
-        opt.textContent = court.label;
-        fallbackSelect.appendChild(opt);
-      });
+      if (typeof fallbackDistricts !== 'undefined') {
+        fallbackDistricts.forEach(court => {
+          const opt = document.createElement("option");
+          opt.value = court.value;
+          opt.textContent = court.label;
+          fallbackSelect.appendChild(opt);
+        });
+      }
 
       zipInput.addEventListener("blur", () => {
         const zip = zipInput.value.trim();
@@ -118,8 +109,8 @@
       });
 
       fallbackSelect.addEventListener("change", () => {
-        const zip = fallbackSelect.value;
-        const court = courtMap[zip];
+        const selectedZip = fallbackSelect.value;
+        const court = courtMap[selectedZip];
         if (court) {
           districtInput.value = court.district;
           nameInput.value = court.court_name;
