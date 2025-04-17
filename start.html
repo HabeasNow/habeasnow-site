@@ -176,12 +176,85 @@
     <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
   </footer>
 
-  <script>
-    document.getElementById('qtef-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('📄 Emergency filing draft generation coming soon. Form data is kept in your browser.');
-    });
-  </script>
+<script>
+  const form = document.getElementById("qtef-form");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const get = (name) => formData.get(name) || "<em>Not provided</em>";
+    const getAll = (name) => formData.getAll(name);
+
+    const preview = document.createElement("section");
+    preview.id = "preview";
+    preview.innerHTML = `
+      <h2>📋 Preview Your Emergency Filing</h2>
+      <h3>1. Who is Being Detained?</h3>
+      <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
+      <strong>Date of Birth:</strong> ${get("detainee_dob")}<br>
+      <strong>Citizenship:</strong> ${get("citizenship")}<br>
+      <strong>Charged:</strong> ${get("charged")}</p>
+
+      <h3>2. Seizure Information</h3>
+      <p><strong>Last Known Location:</strong> ${get("last_location")}<br>
+      <strong>ZIP Code:</strong> ${get("zip_code")}<br>
+      <strong>Date of Seizure:</strong> ${get("last_seen_date")}<br>
+      <strong>Who Seized Them:</strong> ${get("arresting_agency")}<br>
+      <strong>Believed Transferred:</strong> ${get("transferred")}<br>
+      <strong>Transfer Location:</strong> ${get("transfer_location")}</p>
+
+      <h3>3. Risk of Removal</h3>
+      <p><strong>Risk of Removal:</strong> ${get("removal_risk")}<br>
+      <strong>Can Communicate:</strong> ${get("communication_possible")}</p>
+
+      <h3>4. Who Are You?</h3>
+      <p><strong>Your Name:</strong> ${get("filer_name")}<br>
+      <strong>Relationship:</strong> ${get("relationship")}<br>
+      <strong>Email:</strong> ${get("email")}<br>
+      <strong>Phone:</strong> ${get("phone")}<br>
+      <strong>Address:</strong> ${get("address")}<br>
+      <strong>Filing Basis:</strong> ${get("next_friend_basis")}</p>
+
+      <h3>5. Legal Grounds Selected</h3>
+      <p><strong>Family Member:</strong><br>${getAll("grounds_family[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
+      <p><strong>Attorney:</strong><br>${getAll("grounds_attorney[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
+      <p><strong>Third-Party Advocate:</strong><br>${getAll("grounds_advocate[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
+
+      <h3>6. Requested Relief</h3>
+      <p><strong>Family Member:</strong><br>${getAll("relief_family[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
+      <p><strong>Attorney:</strong><br>${getAll("relief_attorney[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
+      <p><strong>Advocate:</strong><br>${getAll("relief_advocate[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
+
+      <h3>7. Declaration</h3>
+      <p><strong>Signature:</strong> ${get("signature")}<br>
+      <strong>Date:</strong> ${get("signature_date")}</p>
+    `;
+
+    const buttons = document.createElement("div");
+    buttons.style.marginTop = "20px";
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "🔙 Go Back and Edit";
+    editBtn.onclick = () => {
+      preview.remove();
+      form.style.display = "block";
+    };
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.textContent = "✅ Confirm and Generate Filing";
+    confirmBtn.onclick = () => {
+      alert("🚧 Draft generation coming soon.");
+    };
+
+    buttons.appendChild(editBtn);
+    buttons.appendChild(confirmBtn);
+    preview.appendChild(buttons);
+
+    form.style.display = "none";
+    document.querySelector("main").appendChild(preview);
+  });
+</script>
   <script>
   const courtMap = {
     "10001": {
