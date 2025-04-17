@@ -47,9 +47,12 @@
           </select>
         </label><br>
 
-        <h3>2. Seizure Information</h3>
-        <label>Last Known Location: <input type="text" name="last_location" required></label><br>
-        <label>Date of Seizure or Last Contact: <input type="date" name="last_seen_date"></label><br>
+    <h3>2. Seizure Information</h3>
+<label>Last Known Location: <input type="text" name="last_location" required></label><br>
+<label>ZIP Code of Seizure or Last Known Location:
+  <input type="text" name="zip_code" pattern="\d{5}" required>
+</label><br>
+<label>Date of Seizure or Last Contact: <input type="date" name="last_seen_date"></label><br>
         <label>Who Seized Them?
           <select name="arresting_agency">
             <option value="federal">Federal agents (FBI, DHS, etc.)</option>
@@ -179,5 +182,63 @@
       alert('📄 Emergency filing draft generation coming soon. Form data is kept in your browser.');
     });
   </script>
+  <script>
+  const courtMap = {
+    "10001": {
+      district: "Southern District of New York",
+      court_name: "U.S. District Court for the Southern District of New York",
+      location: "500 Pearl Street, New York, NY 10007",
+      website: "https://www.nysd.uscourts.gov"
+    },
+    "90001": {
+      district: "Central District of California",
+      court_name: "U.S. District Court for the Central District of California",
+      location: "350 W 1st St, Los Angeles, CA 90012",
+      website: "https://www.cacd.uscourts.gov"
+    },
+    "60601": {
+      district: "Northern District of Illinois",
+      court_name: "U.S. District Court for the Northern District of Illinois",
+      location: "219 S Dearborn St, Chicago, IL 60604",
+      website: "https://www.ilnd.uscourts.gov"
+    },
+    "94102": {
+      district: "Northern District of California",
+      court_name: "U.S. District Court for the Northern District of California",
+      location: "450 Golden Gate Ave, San Francisco, CA 94102",
+      website: "https://www.cand.uscourts.gov"
+    },
+    "33101": {
+      district: "Southern District of Florida",
+      court_name: "U.S. District Court for the Southern District of Florida",
+      location: "400 North Miami Ave, Miami, FL 33128",
+      website: "https://www.flsd.uscourts.gov"
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const zipInput = document.querySelector('input[name="zip_code"]');
+    const displayDiv = document.createElement("div");
+    displayDiv.id = "court-info";
+    displayDiv.style.marginTop = "10px";
+    zipInput.parentNode.appendChild(displayDiv);
+
+    zipInput.addEventListener("blur", () => {
+      const zip = zipInput.value.trim();
+      if (courtMap[zip]) {
+        const court = courtMap[zip];
+        displayDiv.innerHTML = `
+          <strong>Filing District:</strong> ${court.court_name}<br>
+          <strong>Location:</strong> ${court.location}<br>
+          <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
+          <input type="hidden" name="court_district" value="${court.district}">
+          <input type="hidden" name="court_name" value="${court.court_name}">
+        `;
+      } else {
+        displayDiv.innerHTML = `<em>ZIP code not recognized yet—please verify or contact support.</em>`;
+      }
+    });
+  });
+</script>
 </body>
 </html>
