@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Printable Emergency Filing</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Emergency Habeas Filing – Draft</h1>
+    <p><em>Generated via HabeasNow Toolkit. Review carefully before submission.</em></p>
+  </header>
+
+  <main id="filing-output">
+    <!-- Content will be injected here by JavaScript -->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
+  </footer>
+
+  <script>
+    function parseQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return Object.fromEntries(params.entries());
+    }
+
+    function formatSeizer(seizer) {
+      switch (seizer) {
+        case "federal": return "Agents of the federal government (e.g., FBI, DHS)";
+        case "local": return "Local or state law enforcement officials";
+        case "foreign": return "Foreign agents or authorities";
+        case "unknown": return "Unknown or unconfirmed actors";
+        default: return seizer;
+      }
+    }
+
+    function insertFiling(data) {
+      const out = document.getElementById("filing-output");
+      out.innerHTML = `
+        <h2>1. Who is Being Detained</h2>
+        <p><strong>Full Name:</strong> ${data.detainee_name || ""}<br>
+        <strong>Date of Birth:</strong> ${data.detainee_dob || ""}<br>
+        <strong>Citizenship:</strong> ${data.citizenship || ""}<br>
+        <strong>Charged:</strong> ${data.charged || ""}</p>
+
+        <h2>2. Seizure Information</h2>
+        <p><strong>Last Known Location:</strong> ${data.last_location || ""}<br>
+        <strong>ZIP Code:</strong> ${data.zip_code || ""}<br>
+        <strong>Date of Seizure:</strong> ${data.last_seen_date || ""}<br>
+        <strong>Who Seized Them:</strong> ${formatSeizer(data.arresting_agency)}<br>
+        <strong>Believed Transferred:</strong> ${data.transferred || ""}<br>
+        <strong>Transfer Location:</strong> ${data.transfer_location || ""}</p>
+
+        <h2>3. Risk of Removal</h2>
+        <p><strong>Risk of Removal:</strong> ${data.removal_risk || ""}<br>
+        <strong>Can Communicate:</strong> ${data.communication_possible || ""}</p>
+
+        <h2>4. Who is Filing</h2>
+        <p><strong>Filer:</strong> ${data.filer_name || ""}<br>
+        <strong>Relationship:</strong> ${data.relationship || ""}<br>
+        <strong>Email:</strong> ${data.email || ""}<br>
+        <strong>Phone:</strong> ${data.phone || ""}<br>
+        <strong>Address:</strong> ${data.address || ""}<br>
+        <strong>Filing Basis:</strong> ${data.next_friend_basis || ""}</p>
+
+        <h2>5. Declaration</h2>
+        <p><strong>Signature:</strong> ${data.signature || ""}<br>
+        <strong>Date:</strong> ${data.signature_date || ""}</p>
+
+        <h2>6. Temporary Restraining Order (TRO) Request</h2>
+        <p>This section provides formal legal support for an emergency motion to halt transfer or disappearance of the detainee.</p>
+
+        <h3>EMERGENCY MOTION FOR TEMPORARY RESTRAINING ORDER</h3>
+        <p>Petitioner respectfully moves this Court for an emergency Temporary Restraining Order (TRO) pursuant to Federal Rule of Civil Procedure 65, and for an Order to Show Cause why a preliminary injunction should not be issued.</p>
+
+        <h3>RELIEF REQUESTED</h3>
+        <ul>
+          <li>Enjoin Respondents from transferring Petitioner to any foreign jurisdiction without prior judicial authorization;</li>
+          <li>Enjoin Respondents from transferring any similarly situated U.S. citizen without due process and judicial oversight;</li>
+          <li>Require Respondents to disclose the identities and locations of any U.S. citizens already transferred abroad for detention in connection with this executive initiative;</li>
+          <li>Order Respondents to show cause why a preliminary injunction should not issue to maintain this relief pending full resolution.</li>
+        </ul>
+
+        <h3>GROUNDS FOR RELIEF</h3>
+        <ul>
+          <li><strong>Fifth Amendment (Due Process):</strong> Transfer occurred without hearing, notice, or legal review;</li>
+          <li><strong>Suspension Clause (Art. I §9):</strong> Right to habeas corpus cannot be suspended by relocating citizens beyond U.S. borders;</li>
+          <li><strong>Eighth Amendment:</strong> Conditions of confinement violate constitutional standards;</li>
+          <li><strong>Valentine v. United States (1936):</strong> Executive may not transfer U.S. citizens abroad without statutory authority.</li>
+        </ul>
+
+        <h3>IRREPARABLE HARM</h3>
+        <p>Petitioner risks ongoing unlawful detention, denial of legal rights, and potential harm in foreign custody. These harms are immediate and cannot be remedied later by damages.</p>
+
+        <h3>BALANCE OF EQUITIES AND PUBLIC INTEREST</h3>
+        <p>The equities favor Petitioner. No legitimate state interest justifies secret detention or denial of due process. The public interest lies in upholding the Constitution and limiting executive overreach.</p>
+
+        <h2>7. Filing Court</h2>
+        <p><strong>District:</strong> ${data.court_district || "(pending)"}<br>
+        <strong>Court:</strong> ${data.court_name || "(pending)"}</p>
+
+        <h2>8. Service Instructions</h2>
+        <p>You must file this petition with the appropriate U.S. District Court and serve it to:</p>
+        <ul>
+          <li><strong>U.S. Attorney General:</strong> U.S. Department of Justice, 950 Pennsylvania Avenue NW, Washington, DC 20530-0001</li>
+          <li><strong>Local U.S. Attorney:</strong> See DOJ’s district listing online</li>
+        </ul>
+
+        <p><em>🖨️ Use your browser’s print feature to create a hard copy for filing or save as PDF.</em></p>
+      `;
+    }
+
+    insertFiling(parseQuery());
+  </script>
+</body>
+</html>
