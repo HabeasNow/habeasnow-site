@@ -290,11 +290,10 @@ if (shouldIncludeTRO) {
       form.style.display = "block";
     };
 
-    const confirmBtn = document.createElement("button");
-    confirmBtn.textContent = "✅ Confirm and Generate Filing";
-    confirmBtn.onclick = () => {
-      window.location.href = "printable.html"; // we'll wire this page next
-    };
+   confirmBtn.onclick = () => {
+  const query = new URLSearchParams(new FormData(form)).toString();
+  window.location.href = `printable.html?${query}`;
+};
 
     buttons.appendChild(editBtn);
     buttons.appendChild(confirmBtn);
