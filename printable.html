@@ -1,190 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emergency Legal Action to Stop a Secret Transfer</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Printable Emergency Filing</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>HabeasNow</h1>
-    <p class="tagline">Emergency Legal Toolkit – AO 242 Petition</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="start.html" class="active">Start Petition</a>
-      <a href="families.html">For Families</a>
-      <a href="lawyers.html">For Lawyers</a>
-      <a href="how.html">How It Works</a>
-      <a href="about.html">About</a>
-    </nav>
+    <h1>Emergency Habeas Filing – Draft</h1>
+    <p><em>Generated via HabeasNow Toolkit. Review carefully before submission.</em></p>
   </header>
 
-  <main>
-    <section class="hero">
-      <h2>Emergency Legal Action to Stop a Secret Transfer</h2>
-      <p><strong>Use this form if someone has been detained without charges or is at risk of being transferred or disappeared.</strong></p>
-      <p>This form uses the power of United States law to stop unlawful detention and prevent abuse of authority.</p>
-    </section>
-
-    <section class="content">
-      <form id="qtef-form">
-        <!-- form content here -->
-      </form>
-
-      <p style="margin-top: 2rem;">🔒 <em>This form does not store any data. Your responses stay on your device unless you export them.</em></p>
-    </section>
+  <main id="filing-output">
+    <!-- Content will be injected here by JavaScript -->
   </main>
 
   <footer>
     <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
   </footer>
 
-<script>
-  const form = document.getElementById("qtef-form");
+  <script>
+    function parseQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return Object.fromEntries(params.entries());
+    }
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+    function formatSeizer(seizer) {
+      switch (seizer) {
+        case "federal": return "Agents of the federal government (e.g., FBI, DHS)";
+        case "local": return "Local or state law enforcement officials";
+        case "foreign": return "Foreign agents or authorities";
+        case "unknown": return "Unknown or unconfirmed actors";
+        default: return seizer;
+      }
+    }
 
-    const formData = new FormData(form);
-    const get = (name) => formData.get(name) || "<em>Not provided</em>";
-    const getAll = (name) => formData.getAll(name) || [];
+    function insertFiling(data) {
+      const out = document.getElementById("filing-output");
+      out.innerHTML = `
+        <h2>1. Who is Being Detained</h2>
+        <p><strong>Full Name:</strong> ${data.detainee_name || ""}<br>
+        <strong>Date of Birth:</strong> ${data.detainee_dob || ""}<br>
+        <strong>Citizenship:</strong> ${data.citizenship || ""}<br>
+        <strong>Charged:</strong> ${data.charged || ""}</p>
 
-    const preview = document.createElement("section");
-    preview.id = "preview";
-    preview.innerHTML = `
-      <h2>📋 Preview Your Emergency Filing</h2>
+        <h2>2. Seizure Information</h2>
+        <p><strong>Last Known Location:</strong> ${data.last_location || ""}<br>
+        <strong>ZIP Code:</strong> ${data.zip_code || ""}<br>
+        <strong>Date of Seizure:</strong> ${data.last_seen_date || ""}<br>
+        <strong>Who Seized Them:</strong> ${formatSeizer(data.arresting_agency)}<br>
+        <strong>Believed Transferred:</strong> ${data.transferred || ""}<br>
+        <strong>Transfer Location:</strong> ${data.transfer_location || ""}</p>
 
-      <h3>1. Who is Being Detained?</h3>
-      <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
-      <strong>Date of Birth:</strong> ${get("detainee_dob")}<br>
-      <strong>Citizenship:</strong> ${get("citizenship")}<br>
-      <strong>Charged:</strong> ${get("charged")}</p>
+        <h2>3. Risk of Removal</h2>
+        <p><strong>Risk of Removal:</strong> ${data.removal_risk || ""}<br>
+        <strong>Can Communicate:</strong> ${data.communication_possible || ""}</p>
 
-      <h3>2. Seizure Information</h3>
-      <p><strong>Last Known Location:</strong> ${get("last_location")}<br>
-      <strong>ZIP Code:</strong> ${get("zip_code")}<br>
-      <strong>Date of Seizure:</strong> ${get("last_seen_date")}<br>
-      <strong>Who Seized Them:</strong> ${formatSeizingAgency(get("arresting_agency"))}<br>
-      <strong>Believed Transferred:</strong> ${get("transferred")}<br>
-      <strong>Transfer Location:</strong> ${get("transfer_location")}</p>
+        <h2>4. Who is Filing</h2>
+        <p><strong>Filer:</strong> ${data.filer_name || ""}<br>
+        <strong>Relationship:</strong> ${data.relationship || ""}<br>
+        <strong>Email:</strong> ${data.email || ""}<br>
+        <strong>Phone:</strong> ${data.phone || ""}<br>
+        <strong>Address:</strong> ${data.address || ""}<br>
+        <strong>Filing Basis:</strong> ${data.next_friend_basis || ""}</p>
 
-      <h3>3. Risk of Removal</h3>
-      <p><strong>Risk of Removal:</strong> ${get("removal_risk")}<br>
-      <strong>Can Communicate:</strong> ${get("communication_possible")}</p>
+        <h2>5. Declaration</h2>
+        <p><strong>Signature:</strong> ${data.signature || ""}<br>
+        <strong>Date:</strong> ${data.signature_date || ""}</p>
 
-      <h3>4. Who Are You?</h3>
-      <p><strong>Your Name:</strong> ${get("filer_name")}<br>
-      <strong>Relationship:</strong> ${get("relationship")}<br>
-      <strong>Email:</strong> ${get("email")}<br>
-      <strong>Phone:</strong> ${get("phone")}<br>
-      <strong>Address:</strong> ${get("address")}<br>
-      <strong>Filing Basis:</strong> ${get("next_friend_basis")}</p>
+        <h2>6. Temporary Restraining Order (TRO) Request</h2>
+        <p>This section provides formal legal support for an emergency motion to halt transfer or disappearance of the detainee.</p>
 
-      <h3>5. Legal Grounds Selected</h3>
-      <p><strong>Family Member:</strong>${renderChecklist("grounds_family[]", [
-        "Detained without charges or judicial review and at risk of secret removal",
-        "No access to lawyer, judge, or court review",
-        "Violates constitutional rights including due process and habeas corpus",
-        "Detention conditions may amount to cruel and unusual punishment"
-      ])}</p>
+        <h3>EMERGENCY MOTION FOR TEMPORARY RESTRAINING ORDER</h3>
+        <p>Petitioner respectfully moves this Court for an emergency Temporary Restraining Order (TRO) pursuant to Federal Rule of Civil Procedure 65, and for an Order to Show Cause why a preliminary injunction should not be issued.</p>
 
-      <p><strong>Attorney:</strong>${renderChecklist("grounds_attorney[]", [
-        "Held or transferred abroad without indictment, counsel, or court access",
-        "Violates Fifth Amendment due process and suspends habeas rights",
-        "Executive acted without lawful authority",
-        "Confinement conditions may violate Eighth Amendment"
-      ])}</p>
+        <h3>RELIEF REQUESTED</h3>
+        <ul>
+          <li>Enjoin Respondents from transferring Petitioner to any foreign jurisdiction without prior judicial authorization;</li>
+          <li>Enjoin Respondents from transferring any similarly situated U.S. citizen without due process and judicial oversight;</li>
+          <li>Require Respondents to disclose the identities and locations of any U.S. citizens already transferred abroad for detention in connection with this executive initiative;</li>
+          <li>Order Respondents to show cause why a preliminary injunction should not issue to maintain this relief pending full resolution.</li>
+        </ul>
 
-      <p><strong>Third-Party Advocate:</strong>${renderChecklist("grounds_advocate[]", [
-        "Credible information of detention without charges or legal process",
-        "Risk of removal without judicial review",
-        "Request court protection to ensure constitutional rights"
-      ])}</p>
+        <h3>GROUNDS FOR RELIEF</h3>
+        <ul>
+          <li><strong>Fifth Amendment (Due Process):</strong> Transfer occurred without hearing, notice, or legal review;</li>
+          <li><strong>Suspension Clause (Art. I §9):</strong> Right to habeas corpus cannot be suspended by relocating citizens beyond U.S. borders;</li>
+          <li><strong>Eighth Amendment:</strong> Conditions of confinement violate constitutional standards;</li>
+          <li><strong>Valentine v. United States (1936):</strong> Executive may not transfer U.S. citizens abroad without statutory authority.</li>
+        </ul>
 
-      <h3>6. Relief Requested</h3>
-      <p><strong>Family Member:</strong>${renderChecklist("relief_family[]", [
-        "Issue emergency writ of habeas corpus to bring loved one under U.S. protection",
-        "Prevent further transfer or removal from U.S. jurisdiction",
-        "Declare the detention unlawful and ensure access to counsel and court"
-      ])}</p>
+        <h3>IRREPARABLE HARM</h3>
+        <p>Petitioner risks ongoing unlawful detention, denial of legal rights, and potential harm in foreign custody. These harms are immediate and cannot be remedied later by damages.</p>
 
-      <p><strong>Attorney:</strong>${renderChecklist("relief_attorney[]", [
-        "Compel return to U.S. jurisdiction via writ of habeas corpus",
-        "Declare executive transfer/detention policy unconstitutional",
-        "Grant injunctive relief to stop further illegal detention"
-      ])}</p>
+        <h3>BALANCE OF EQUITIES AND PUBLIC INTEREST</h3>
+        <p>The equities favor Petitioner. No legitimate state interest justifies secret detention or denial of due process. The public interest lies in upholding the Constitution and limiting executive overreach.</p>
 
-      <p><strong>Advocate:</strong>${renderChecklist("relief_advocate[]", [
-        "Preserve access to the U.S. legal system and prevent removal",
-        "Request immediate court review and protective relief"
-      ])}</p>
+        <h2>7. Filing Court</h2>
+        <p><strong>District:</strong> ${data.court_district || "(pending)"}<br>
+        <strong>Court:</strong> ${data.court_name || "(pending)"}</p>
 
-      <h3>7. Declaration</h3>
-      <p><strong>Signature:</strong> ${get("signature")}<br>
-      <strong>Date:</strong> ${get("signature_date")}</p>
-    `;
+        <h2>8. Service Instructions</h2>
+        <p>You must file this petition with the appropriate U.S. District Court and serve it to:</p>
+        <ul>
+          <li><strong>U.S. Attorney General:</strong> U.S. Department of Justice, 950 Pennsylvania Avenue NW, Washington, DC 20530-0001</li>
+          <li><strong>Local U.S. Attorney:</strong> See DOJ’s district listing online</li>
+        </ul>
 
-    const shouldIncludeTRO =
-      formData.get("transferred") === "yes" ||
-      formData.get("removal_risk") === "yes";
-
-    if (shouldIncludeTRO) {
-      preview.innerHTML += `
-        <h3>8. Temporary Restraining Order (TRO) Request</h3>
-        <p>
-          Based on your answers, we’ve included a draft request for emergency relief to stop any removal or transfer.
-        </p>
-        <blockquote>
-          Petitioner respectfully requests that this Court issue a Temporary Restraining Order (TRO) prohibiting the Respondents, their agents, or any U.S. government officials from transferring, removing, or otherwise relocating the detained individual from their current location or out of United States legal jurisdiction, pending judicial review of this petition.
-        </blockquote>
-        <p>
-          This section is included because your filing indicates an urgent risk of disappearance or secret transfer. You may edit or remove it before filing.
-        </p>
+        <p><em>🖨️ Use your browser’s print feature to create a hard copy for filing or save as PDF.</em></p>
       `;
     }
 
-    const buttons = document.createElement("div");
-    buttons.style.marginTop = "20px";
-
-    const editBtn = document.createElement("button");
-    editBtn.textContent = "🔙 Go Back and Edit";
-    editBtn.onclick = () => {
-      preview.remove();
-      form.style.display = "block";
-    };
-
-    const confirmBtn = document.createElement("button");
-    confirmBtn.textContent = "✅ Confirm and Generate Filing";
-    confirmBtn.onclick = () => {
-      const query = new URLSearchParams(new FormData(form)).toString();
-      window.location.href = `printable.html?${query}`;
-    };
-
-    buttons.appendChild(editBtn);
-    buttons.appendChild(confirmBtn);
-    preview.appendChild(buttons);
-
-    form.style.display = "none";
-    document.querySelector("main").appendChild(preview);
-    preview.scrollIntoView({ behavior: "smooth" });
-
-    function renderChecklist(name, labels) {
-      const selections = formData.getAll(name);
-      if (selections.length === 0) return "<em> None selected</em>";
-      return "<ul>" + selections.map(v => `<li>${labels[parseInt(v) - 1]}</li>`).join("") + "</ul>";
-    }
-
-    function formatSeizingAgency(value) {
-      const mapping = {
-        federal: "Agents of the federal government",
-        local: "Local law enforcement officers",
-        foreign: "Agents of a foreign government",
-        unknown: "Unknown or unidentified personnel"
-      };
-      return mapping[value] || value;
-    }
-  });
-</script>
+    insertFiling(parseQuery());
+  </script>
 </body>
 </html>
