@@ -261,7 +261,25 @@
       <p><strong>Signature:</strong> ${get("signature")}<br>
       <strong>Date:</strong> ${get("signature_date")}</p>
     `;
+// ✅ Check if TRO conditions are met
+const shouldIncludeTRO =
+  formData.get("transferred") === "yes" ||
+  formData.get("removal_risk") === "yes";
 
+if (shouldIncludeTRO) {
+  preview.innerHTML += `
+    <h3>8. Temporary Restraining Order (TRO) Request</h3>
+    <p>
+      Based on your answers, we’ve included a draft request for emergency relief to stop any removal or transfer.
+    </p>
+    <blockquote>
+      Petitioner respectfully requests that this Court issue a Temporary Restraining Order (TRO) prohibiting the Respondents, their agents, or any U.S. government officials from transferring, removing, or otherwise relocating the detained individual from their current location or out of United States legal jurisdiction, pending judicial review of this petition.
+    </blockquote>
+    <p>
+      This section is included because your filing indicates an urgent risk of disappearance or secret transfer. You may edit or remove it before filing.
+    </p>
+  `;
+}
     const buttons = document.createElement("div");
     buttons.style.marginTop = "20px";
 
