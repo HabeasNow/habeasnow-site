@@ -184,12 +184,13 @@
 
     const formData = new FormData(form);
     const get = (name) => formData.get(name) || "<em>Not provided</em>";
-    const getAll = (name) => formData.getAll(name);
+    const getAll = (name) => formData.getAll(name) || [];
 
     const preview = document.createElement("section");
     preview.id = "preview";
     preview.innerHTML = `
       <h2>📋 Preview Your Emergency Filing</h2>
+
       <h3>1. Who is Being Detained?</h3>
       <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
       <strong>Date of Birth:</strong> ${get("detainee_dob")}<br>
@@ -217,17 +218,46 @@
       <strong>Filing Basis:</strong> ${get("next_friend_basis")}</p>
 
       <h3>5. Legal Grounds Selected</h3>
-      <p><strong>Family Member:</strong><br>${getAll("grounds_family[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
-      <p><strong>Attorney:</strong><br>${getAll("grounds_attorney[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
-      <p><strong>Third-Party Advocate:</strong><br>${getAll("grounds_advocate[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
+      <p><strong>Family Member:</strong><br>${renderChecklist("grounds_family[]", [
+        "Detained without charges or judicial review",
+        "Held without due process or access to a judge",
+        "Detention violates due process and habeas rights",
+        "Conditions may violate the Eighth Amendment"
+      ])}</p>
+
+      <p><strong>Attorney:</strong><br>${renderChecklist("grounds_attorney[]", [
+        "Held abroad without indictment or access to courts",
+        "Denial of habeas corpus undermines Suspension Clause",
+        "Executive action lacks statutory authority (Valentine v. US)",
+        "Conditions of confinement violate the Constitution"
+      ])}</p>
+
+      <p><strong>Third-Party Advocate:</strong><br>${renderChecklist("grounds_advocate[]", [
+        "Credible info suggests unlawful detention",
+        "At risk of transfer beyond U.S. jurisdiction",
+        "Request for immediate legal relief"
+      ])}</p>
 
       <h3>6. Requested Relief</h3>
-      <p><strong>Family Member:</strong><br>${getAll("relief_family[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
-      <p><strong>Attorney:</strong><br>${getAll("relief_attorney[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
-      <p><strong>Advocate:</strong><br>${getAll("relief_advocate[]").map(() => "✔️").join(" ") || "<em>None selected</em>"}</p>
+      <p><strong>Family Member:</strong><br>${renderChecklist("relief_family[]", [
+        "Emergency writ to bring loved one under U.S. protection",
+        "Prevent further transfer/removal from U.S. jurisdiction",
+        "Declare detention unlawful; ensure access to counsel"
+      ])}</p>
+
+      <p><strong>Attorney:</strong><br>${renderChecklist("relief_attorney[]", [
+        "Writ compelling return to U.S. jurisdiction",
+        "Declare policy unconstitutional and enjoin future removals",
+        "Grant injunctive relief"
+      ])}</p>
+
+      <p><strong>Advocate:</strong><br>${renderChecklist("relief_advocate[]", [
+        "Preserve access to U.S. legal system",
+        "Court intervention to assess legality and offer protection"
+      ])}</p>
 
       <h3>7. Declaration</h3>
-      <p><strong>Signature:</strong> ${get("signature")}<br> 
+      <p><strong>Signature:</strong> ${get("signature")}<br>
       <strong>Date:</strong> ${get("signature_date")}</p>
     `;
 
@@ -253,6 +283,16 @@
 
     form.style.display = "none";
     document.querySelector("main").appendChild(preview);
+
+    // Auto-scroll
+    preview.scrollIntoView({ behavior: "smooth" });
+
+    // Checklist formatter helper
+    function renderChecklist(name, labels) {
+      const selections = formData.getAll(name);
+      if (selections.length === 0) return "<em>None selected</em>";
+      return "<ul>" + selections.map(v => `<li>${labels[parseInt(v) - 1]}</li>`).join("") + "</ul>";
+    }
   });
 </script>
   <script>
