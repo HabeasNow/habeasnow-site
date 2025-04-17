@@ -195,42 +195,42 @@
       <strong>Filing Basis:</strong> ${get("next_friend_basis")}</p>
 
       <h3>5. Legal Grounds Selected</h3>
-      <p><strong>Family Member:</strong><br>${renderChecklist("grounds_family[]", [
-        "Detained without charges or judicial review",
-        "Held without due process or access to a judge",
-        "Detention violates due process and habeas rights",
-        "Conditions may violate the Eighth Amendment"
+      <p><strong>Family Member:</strong>${renderChecklist("grounds_family[]", [
+        "Detained without charges or judicial review and at risk of secret removal",
+        "No access to lawyer, judge, or court review",
+        "Violates constitutional rights including due process and habeas corpus",
+        "Detention conditions may amount to cruel and unusual punishment"
       ])}</p>
 
-      <p><strong>Attorney:</strong><br>${renderChecklist("grounds_attorney[]", [
-        "Held abroad without indictment or access to courts",
-        "Denial of habeas corpus undermines Suspension Clause",
-        "Executive action lacks statutory authority (Valentine v. US)",
-        "Conditions of confinement violate the Constitution"
+      <p><strong>Attorney:</strong>${renderChecklist("grounds_attorney[]", [
+        "Held or transferred abroad without indictment, counsel, or court access",
+        "Violates Fifth Amendment due process and suspends habeas rights",
+        "Executive acted without lawful authority",
+        "Confinement conditions may violate Eighth Amendment"
       ])}</p>
 
-      <p><strong>Third-Party Advocate:</strong><br>${renderChecklist("grounds_advocate[]", [
-        "Credible info suggests unlawful detention",
-        "At risk of transfer beyond U.S. jurisdiction",
-        "Request for immediate legal relief"
+      <p><strong>Third-Party Advocate:</strong>${renderChecklist("grounds_advocate[]", [
+        "Credible information of detention without charges or legal process",
+        "Risk of removal without judicial review",
+        "Request court protection to ensure constitutional rights"
       ])}</p>
 
-      <h3>6. Requested Relief</h3>
-      <p><strong>Family Member:</strong><br>${renderChecklist("relief_family[]", [
-        "Emergency writ to bring loved one under U.S. protection",
-        "Prevent further transfer/removal from U.S. jurisdiction",
-        "Declare detention unlawful; ensure access to counsel"
+      <h3>6. Relief Requested</h3>
+      <p><strong>Family Member:</strong>${renderChecklist("relief_family[]", [
+        "Issue emergency writ of habeas corpus to bring loved one under U.S. protection",
+        "Prevent further transfer or removal from U.S. jurisdiction",
+        "Declare the detention unlawful and ensure access to counsel and court"
       ])}</p>
 
-      <p><strong>Attorney:</strong><br>${renderChecklist("relief_attorney[]", [
-        "Writ compelling return to U.S. jurisdiction",
-        "Declare policy unconstitutional and enjoin future removals",
-        "Grant injunctive relief"
+      <p><strong>Attorney:</strong>${renderChecklist("relief_attorney[]", [
+        "Compel return to U.S. jurisdiction via writ of habeas corpus",
+        "Declare executive transfer/detention policy unconstitutional",
+        "Grant injunctive relief to stop further illegal detention"
       ])}</p>
 
-      <p><strong>Advocate:</strong><br>${renderChecklist("relief_advocate[]", [
-        "Preserve access to U.S. legal system",
-        "Court intervention to assess legality and offer protection"
+      <p><strong>Advocate:</strong>${renderChecklist("relief_advocate[]", [
+        "Preserve access to the U.S. legal system and prevent removal",
+        "Request immediate court review and protective relief"
       ])}</p>
 
       <h3>7. Declaration</h3>
@@ -251,7 +251,7 @@
     const confirmBtn = document.createElement("button");
     confirmBtn.textContent = "✅ Confirm and Generate Filing";
     confirmBtn.onclick = () => {
-      alert("🚧 Draft generation coming soon.");
+      window.location.href = "printable.html"; // we'll wire this page next
     };
 
     buttons.appendChild(editBtn);
@@ -260,14 +260,11 @@
 
     form.style.display = "none";
     document.querySelector("main").appendChild(preview);
-
-    // Auto-scroll
     preview.scrollIntoView({ behavior: "smooth" });
 
-    // Checklist formatter helper
     function renderChecklist(name, labels) {
       const selections = formData.getAll(name);
-      if (selections.length === 0) return "<em>None selected</em>";
+      if (selections.length === 0) return "<em> None selected</em>";
       return "<ul>" + selections.map(v => `<li>${labels[parseInt(v) - 1]}</li>`).join("") + "</ul>";
     }
   });
