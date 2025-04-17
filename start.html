@@ -382,7 +382,9 @@ confirmBtn.onclick = () => {
           <input type="hidden" name="court_name" value="${court.court_name}">
         `;
       } else {
-        displayDiv.innerHTML = `<em>ZIP code not recognized yet—please verify or contact support.</em>`;
+        displayDiv.innerHTML = `
+  <em>ZIP code not recognized yet—please select the closest federal court from the list below.</em>
+`;
       }
     });
   });
