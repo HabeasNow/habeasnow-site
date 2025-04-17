@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Printable Emergency Habeas Filing</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Georgia, serif;
+      line-height: 1.6;
+      padding: 40px;
+      background: #fff;
+      color: #000;
+    }
+    h1, h2, h3 {
+      color: #000;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 4px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    blockquote {
+      background: #f9f9f9;
+      border-left: 4px solid #333;
+      padding: 10px 15px;
+      font-style: italic;
+      margin: 20px 0;
+    }
+    .note {
+      font-size: 0.9em;
+      color: #555;
+    }
+    @media print {
+      button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Emergency Habeas Filing – Draft</h1>
+  <p class="note">Generated via HabeasNow Toolkit. Review carefully before submission.</p>
+
+  <div id="print-content">
+    <!-- JavaScript will populate content here -->
+  </div>
+
+  <button onclick="window.print()">🖨️ Print This Page</button>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const decode = (key) => decodeURIComponent(params.get(key) || "").replace(/\+/g, ' ');
+
+    const data = {
+      detainee_name: decode("detainee_name"),
+      detainee_dob: decode("detainee_dob"),
+      citizenship: decode("citizenship"),
+      charged: decode("charged"),
+      last_location: decode("last_location"),
+      zip_code: decode("zip_code"),
+      last_seen_date: decode("last_seen_date"),
+      arresting_agency: decode("arresting_agency"),
+      transferred: decode("transferred"),
+      transfer_location: decode("transfer_location"),
+      removal_risk: decode("removal_risk"),
+      communication_possible: decode("communication_possible"),
+      filer_name: decode("filer_name"),
+      relationship: decode("relationship"),
+      email: decode("email"),
+      phone: decode("phone"),
+      address: decode("address"),
+      next_friend_basis: decode("next_friend_basis"),
+      signature: decode("signature"),
+      signature_date: decode("signature_date"),
+      court_name: decode("court_name"),
+      court_district: decode("court_district")
+    };
+
+    const el = document.getElementById("print-content");
+
+    el.innerHTML = `
+      <div class="section">
+        <h2>1. Who is Being Detained?</h2>
+        <p><strong>Full Name:</strong> ${data.detainee_name}<br>
+        <strong>Date of Birth:</strong> ${data.detainee_dob}<br>
+        <strong>Citizenship:</strong> ${data.citizenship}<br>
+        <strong>Charged:</strong> ${data.charged}</p>
+      </div>
+
+      <div class="section">
+        <h2>2. Seizure Information</h2>
+        <p><strong>Last Known Location:</strong> ${data.last_location}<br>
+        <strong>ZIP Code:</strong> ${data.zip_code}<br>
+        <strong>Date of Seizure:</strong> ${data.last_seen_date}<br>
+        <strong>Who Seized Them:</strong> ${data.arresting_agency}<br>
+        <strong>Believed Transferred:</strong> ${data.transferred}<br>
+        <strong>Transfer Location:</strong> ${data.transfer_location}</p>
+      </div>
+
+      <div class="section">
+        <h2>3. Risk of Removal</h2>
+        <p><strong>Risk of Removal:</strong> ${data.removal_risk}<br>
+        <strong>Can Communicate:</strong> ${data.communication_possible}</p>
+      </div>
+
+      <div class="section">
+        <h2>4. Who is Filing?</h2>
+        <p><strong>Filer:</strong> ${data.filer_name}<br>
+        <strong>Relationship:</strong> ${data.relationship}<br>
+        <strong>Email:</strong> ${data.email}<br>
+        <strong>Phone:</strong> ${data.phone}<br>
+        <strong>Address:</strong> ${data.address}<br>
+        <strong>Filing Basis:</strong> ${data.next_friend_basis}</p>
+      </div>
+
+      <div class="section">
+        <h2>5. Declaration</h2>
+        <p><strong>Signature:</strong> ${data.signature}<br>
+        <strong>Date:</strong> ${data.signature_date}</p>
+      </div>
+
+      ${data.transferred === "yes" || data.removal_risk === "yes" ? `
+        <div class="section">
+          <h2>6. Temporary Restraining Order (TRO) Request</h2>
+          <p>Based on your answers, we’ve included a draft request for emergency relief to stop any removal or transfer.</p>
+          <blockquote>
+            Petitioner respectfully requests that this Court issue a Temporary Restraining Order (TRO) prohibiting the Respondents, their agents, or any U.S. government officials from transferring, removing, or otherwise relocating the detained individual from their current location or out of United States legal jurisdiction, pending judicial review of this petition.
+          </blockquote>
+          <p>This section is included because your filing indicates an urgent risk of disappearance or secret transfer. You may edit or remove it before filing.</p>
+        </div>` : ""}
+
+      ${data.court_name ? `
+        <div class="section">
+          <h2>7. Filing Court</h2>
+          <p><strong>District:</strong> ${data.court_district}<br>
+          <strong>Court:</strong> ${data.court_name}</p>
+        </div>` : ""}
+
+      <div class="section">
+        <h2>8. Service Instructions</h2>
+        <p class="note">
+          You must file this petition with the appropriate U.S. District Court and serve a copy to the U.S. Attorney's Office in the district and to the U.S. Attorney General:
+        </p>
+        <ul>
+          <li><strong>Attorney General:</strong> U.S. Department of Justice, 950 Pennsylvania Avenue NW, Washington, DC 20530-0001</li>
+          <li><strong>Local U.S. Attorney:</strong> Address varies by district – see <a href="https://www.justice.gov/usao/find-your-united-states-attorney" target="_blank">Find Your U.S. Attorney</a></li>
+        </ul>
+      </div>
+    `;
+  </script>
+</body>
+</html>
