@@ -1,3 +1,4 @@
+<!-- Full QTEF Form with ZIP integration and fallback -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emergency Legal Action to Stop a Secret Transfer</title>
   <link rel="stylesheet" href="style.css">
-  <script src="fallbackDistricts.js" defer></script>
+  <script src="fallbackDistricts.js"></script>
 </head>
 <body>
   <header>
@@ -30,7 +31,153 @@
 
     <section class="content">
       <form id="qtef-form">
-        <!-- ZIP and fallback court logic -->
+
+    <section class="content">
+      <form id="qtef-form">
+        <h3>1. Who is Being Detained?</h3>
+        <label>Full Name: <input type="text" name="detainee_name" required></label><br>
+        <label>Date of Birth: <input type="date" name="detainee_dob"></label><br>
+        <label>Citizenship Status:
+          <select name="citizenship">
+            <option value="us">U.S. Citizen</option>
+            <option value="green_card">Green Card Holder</option>
+            <option value="other">Other</option>
+          </select>
+        </label><br>
+        <label>Has this person been charged?
+          <select name="charged">
+            <option value="no">No</option>
+            <option value="unsure">Unsure</option>
+            <option value="yes">Yes</option>
+          </select>
+        </label><br>
+
+    <h3>2. Seizure Information</h3>
+<label>Last Known Location: <input type="text" name="last_location" required></label><br>
+<label>ZIP Code of Seizure or Last Known Location:
+  <input type="text" name="zip_code" pattern="\d{5}" required>
+</label><br>
+<label>Date of Seizure or Last Contact: <input type="date" name="last_seen_date"></label><br>
+        <label>Who Seized Them?
+          <select name="arresting_agency">
+            <option value="federal">Federal agents (FBI, DHS, etc.)</option>
+            <option value="local">Local police</option>
+            <option value="foreign">Foreign agents</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </label><br>
+        <label>Do you believe they were transferred?
+          <select name="transferred">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="unsure">Unsure</option>
+          </select>
+        </label><br>
+        <label>If yes, where? <input type="text" name="transfer_location"></label><br>
+
+        <h3>3. Risk of Removal</h3>
+        <label>Are they at risk of removal from the U.S. or U.S. control?
+          <select name="removal_risk">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="unsure">Unsure</option>
+          </select>
+        </label><br>
+        <label>Can they currently communicate with anyone?
+          <select name="communication_possible">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </label><br>
+
+        <h3>4. Who Are You?</h3>
+        <label>Your Full Name: <input type="text" name="filer_name" required></label><br>
+        <label>Relationship:
+          <select name="relationship">
+            <option value="family">Family member</option>
+            <option value="friend">Friend</option>
+            <option value="attorney">Attorney</option>
+            <option value="advocate">Advocate</option>
+          </select>
+        </label><br>
+        <label>Email: <input type="email" name="email" required></label><br>
+        <label>Phone: <input type="tel" name="phone"></label><br>
+        <label>Address: <input type="text" name="address"></label><br>
+        <label>Are you filing because the detainee cannot?
+          <select name="next_friend_basis">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="missing">They are missing / incommunicado</option>
+            <option value="attorney">I am their legal representative</option>
+          </select>
+        </label><br>
+
+        
+        <h3>5. Legal Grounds for Relief</h3>
+<p><em>Please review and check all statements that apply. These are grouped by role to guide your selections.</em></p>
+
+<fieldset>
+  <legend>👪 <strong>Family Member / Friend:</strong></legend>
+  <label><input type="checkbox" name="grounds_family[]" value="1"> My family member is a U.S. citizen who has been detained without charges or judicial review, and I believe they are at risk of being secretly removed from the United States—or have already been transferred—to a foreign facility.</label><br>
+  <label><input type="checkbox" name="grounds_family[]" value="2"> They have not had access to a lawyer, a hearing before a judge, or any opportunity to challenge their detention in court.</label><br>
+  <label><input type="checkbox" name="grounds_family[]" value="3"> I believe this violates their constitutional rights, including the right to due process and to seek release through a habeas corpus petition.</label><br>
+  <label><input type="checkbox" name="grounds_family[]" value="4"> I am concerned that their detention conditions may amount to cruel and unusual punishment.</label>
+</fieldset>
+
+<fieldset>
+  <legend>⚖️ <strong>Attorney:</strong></legend>
+  <label><input type="checkbox" name="grounds_attorney[]" value="1"> My client, a U.S. citizen, has been detained or transferred abroad without indictment, arraignment, access to counsel, or the ability to challenge the detention in any U.S. court.</label><br>
+  <label><input type="checkbox" name="grounds_attorney[]" value="2"> This detention violates their Fifth Amendment right to due process and effectively suspends the constitutional guarantee of habeas corpus.</label><br>
+  <label><input type="checkbox" name="grounds_attorney[]" value="3"> No statutory or constitutional authority exists for this type of extrajudicial transfer or detention. The executive’s action is unlawful and exceeds its lawful power.</label><br>
+  <label><input type="checkbox" name="grounds_attorney[]" value="4"> The conditions of confinement—particularly outside U.S. jurisdiction—may violate the Eighth Amendment's prohibition on cruel and unusual punishment.</label>
+</fieldset>
+
+<fieldset>
+  <legend>🕊️ <strong>Third-Party Advocate:</strong></legend>
+  <label><input type="checkbox" name="grounds_advocate[]" value="1"> I am not a family member or attorney, but I have credible and specific information that this person is being held without charges or legal process, possibly under executive direction.</label><br>
+  <label><input type="checkbox" name="grounds_advocate[]" value="2"> I believe the government is denying them access to the courts, and there is a serious risk they will be removed to a foreign country without judicial review.</label><br>
+  <label><input type="checkbox" name="grounds_advocate[]" value="3"> I respectfully request that the Court intervene to protect their constitutional rights and ensure they are not transferred or disappeared without due process.</label>
+</fieldset>
+
+<h3>6. Relief Requested</h3>
+<p><em>Please check all that apply. These are grouped by role. You may select more than one.</em></p>
+
+<fieldset>
+  <legend>👪 <strong>Family Member / Friend:</strong></legend>
+  <label><input type="checkbox" name="relief_family[]" value="1"> Issue emergency writ of habeas corpus to bring loved one under U.S. protection</label><br>
+  <label><input type="checkbox" name="relief_family[]" value="2"> Prevent further transfer or removal from U.S. jurisdiction</label><br>
+  <label><input type="checkbox" name="relief_family[]" value="3"> Declare the detention unlawful and ensure access to counsel and court</label>
+</fieldset>
+
+<fieldset>
+  <legend>⚖️ <strong>Attorney:</strong></legend>
+  <label><input type="checkbox" name="relief_attorney[]" value="1"> Compel return to U.S. jurisdiction via writ of habeas corpus</label><br>
+  <label><input type="checkbox" name="relief_attorney[]" value="2"> Declare executive transfer/detention policy unconstitutional</label><br>
+  <label><input type="checkbox" name="relief_attorney[]" value="3"> Grant injunctive relief to stop further illegal detention</label>
+</fieldset>
+
+<fieldset>
+  <legend>🕊️ <strong>Third-Party Advocate:</strong></legend>
+  <label><input type="checkbox" name="relief_advocate[]" value="1"> Preserve access to the U.S. legal system and prevent removal</label><br>
+  <label><input type="checkbox" name="relief_advocate[]" value="2"> Request immediate court review and protective relief</label>
+</fieldset>
+        
+<h3>7. Declaration</h3>
+        <label>
+          <input type="checkbox" name="declaration" required>
+          I declare under penalty of perjury that the above is true to the best of my knowledge.
+        </label><br>
+        <label>Digital Signature: <input type="text" name="signature" required></label><br>
+        <label>Date: <input type="date" name="signature_date"></label><br><br>
+
+        <button type="submit">Submit and Generate Emergency Filings</button>
+      </form>
+
+        <!-- Paste the full form content from your known working version here -->
+        <!-- Ensure to preserve the ZIP court lookup block -->
+
+        <!-- ZIP Code Lookup with fallback -->
         <label>ZIP Code of Seizure or Last Known Location:
           <input type="text" name="zip_code" id="zip_code" pattern="\d{5}" required>
         </label>
@@ -41,7 +188,6 @@
           <label>If ZIP not recognized, select court manually:
             <select id="fallback-court">
               <option value="">Select Court</option>
-              <!-- Options are injected by fallbackDistricts.js -->
             </select>
           </label>
           <input type="hidden" name="court_district" id="fallback-court-district">
@@ -49,9 +195,11 @@
           <input type="hidden" name="court_location" id="fallback-court-location">
         </div>
 
-        <!-- Insert remainder of the full form content below (Sections 1–7, Legal Grounds, Requested Relief, Declaration, etc.) -->
-
+        <!-- Submit button will be restored below -->
+        <button type="submit">Submit and Generate Emergency Filings</button>
       </form>
+
+      <p style="margin-top: 2rem;">🔒 <em>This form does not store any data. Your responses stay on your device unless you export them.</em></p>
     </section>
   </main>
 
@@ -60,16 +208,6 @@
   </footer>
 
   <script>
-    const courtMap = {
-      "90001": {
-        district: "Central District of California",
-        court_name: "U.S. District Court for the Central District of California",
-        location: "350 W 1st St, Los Angeles, CA 90012",
-        website: "https://www.cacd.uscourts.gov"
-      },
-      // More ZIP mappings can be added here...
-    };
-
     document.addEventListener("DOMContentLoaded", function () {
       const zipInput = document.getElementById("zip_code");
       const courtInfo = document.getElementById("court-info");
@@ -80,14 +218,12 @@
       const nameInput = document.getElementById("fallback-court-name");
       const locationInput = document.getElementById("fallback-court-location");
 
-      if (typeof fallbackDistricts !== 'undefined') {
-        fallbackDistricts.forEach(court => {
-          const opt = document.createElement("option");
-          opt.value = court.value;
-          opt.textContent = court.label;
-          fallbackSelect.appendChild(opt);
-        });
-      }
+      fallbackDistricts.forEach(court => {
+        const opt = document.createElement("option");
+        opt.value = court.value;
+        opt.textContent = court.label;
+        fallbackSelect.appendChild(opt);
+      });
 
       zipInput.addEventListener("blur", () => {
         const zip = zipInput.value.trim();
@@ -109,8 +245,8 @@
       });
 
       fallbackSelect.addEventListener("change", () => {
-        const selectedZip = fallbackSelect.value;
-        const court = courtMap[selectedZip];
+        const zip = fallbackSelect.value;
+        const court = courtMap[zip];
         if (court) {
           districtInput.value = court.district;
           nameInput.value = court.court_name;
