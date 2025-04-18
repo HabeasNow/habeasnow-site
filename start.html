@@ -48,15 +48,29 @@
           </select>
         </label><br>
 
-    <h3>2. Seizure Information</h3>
-<label>Last Known Location: <input type="text" name="last_location" required></label><br>
-<label>ZIP Code of Seizure or Last Known Location:
-  <input type="text" name="zip_code" pattern="\d{5}" required>
-</label><label>If you don’t know the ZIP code, select the nearest court:
-  <select name="fallback_district" id="fallback-district-select">
-    <option value="">Choose a federal district court...</option>
-  </select>
-</label><br><br>
+<h3>2. Seizure Information</h3>
+<p>
+  <strong>Last Known Location:</strong> ${get("last_location")}<br>
+  <strong>ZIP Code:</strong> ${get("zip_code")}<br>
+  <strong>Date of Seizure:</strong> ${get("last_seen_date")}<br>
+  <strong>Who Seized Them:</strong> ${
+    get("arresting_agency") === "federal"
+      ? "Agents of the federal government"
+      : get("arresting_agency")
+  }<br>
+  <strong>Believed Transferred:</strong> ${get("transferred")}<br>
+  <strong>Transfer Location:</strong> ${get("transfer_location")}<br>
+</p>
+
+<h4>📍 Filing Court</h4>
+<p>
+  <em>If you're not sure which district applies, we recommend selecting the court closest to the place of seizure or last contact.</em>
+</p>
+<p>
+  <strong>District:</strong> ${get("court_district")}<br>
+  <strong>Court Name:</strong> ${get("court_name")}<br>
+  <strong>Location:</strong> ${get("court_location")}
+</p>
         
 <label>Date of Seizure or Last Contact: <input type="date" name="last_seen_date"></label><br>
         <label>Who Seized Them?
