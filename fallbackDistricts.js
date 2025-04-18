@@ -1,4 +1,4 @@
-const fallbackDistricts = [
+window.fallbackDistricts = [
   { label: "District of Columbia – Washington, DC 20001", value: "20001" },
   { label: "Northern District of Alabama – Birmingham, AL 35203", value: "35203" },
   { label: "Middle District of Alabama – Montgomery, AL 36104", value: "36104" },
