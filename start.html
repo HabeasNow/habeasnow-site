@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emergency Legal Action to Stop a Secret Transfer</title>
   <link rel="stylesheet" href="style.css">
-  <script src="fallbackDistricts.js"></script>
 </head>
 <body>
   <header>
@@ -48,12 +47,17 @@
           </select>
         </label><br>
 
-        <h3>2. Seizure Information</h3>
-        <label>Last Known Location: <input type="text" name="last_location" required></label><br>
-        <label>ZIP Code of Seizure or Last Known Location:
-          <input type="text" name="zip_code" id="zip_code" pattern="\d{5}" required>
-        </label><br>
-        <label>Date of Seizure or Last Contact: <input type="date" name="last_seen_date"></label><br>
+    <h3>2. Seizure Information</h3>
+<label>Last Known Location: <input type="text" name="last_location" required></label><br>
+<label>ZIP Code of Seizure or Last Known Location:
+  <input type="text" name="zip_code" pattern="\d{5}" required>
+</label><label>If you don’t know the ZIP code, select the nearest court:
+  <select name="fallback_district" id="fallback-district-select">
+    <option value="">Choose a federal district court...</option>
+  </select>
+</label><br><br>
+        
+<label>Date of Seizure or Last Contact: <input type="date" name="last_seen_date"></label><br>
         <label>Who Seized Them?
           <select name="arresting_agency">
             <option value="federal">Federal agents (FBI, DHS, etc.)</option>
@@ -109,26 +113,57 @@
           </select>
         </label><br>
 
-        <div id="court-info"></div>
-
-        <div id="fallback-court-container" style="display:none;">
-          <label>If ZIP not recognized, select court manually:
-            <select id="fallback-court">
-              <option value="">Select Court</option>
-            </select>
-          </label>
-          <input type="hidden" name="court_district" id="fallback-court-district">
-          <input type="hidden" name="court_name" id="fallback-court-name">
-          <input type="hidden" name="court_location" id="fallback-court-location">
-        </div>
-
+        
         <h3>5. Legal Grounds for Relief</h3>
-        <!-- Legal grounds checkboxes go here -->
+<p><em>Please review and check all statements that apply. These are grouped by role to guide your selections.</em></p>
 
-        <h3>6. Relief Requested</h3>
-        <!-- Relief checkboxes go here -->
+<fieldset>
+  <legend>👪 <strong>Family Member / Friend:</strong></legend>
+  <label><input type="checkbox" name="grounds_family[]" value="1"> My family member is a U.S. citizen who has been detained without charges or judicial review, and I believe they are at risk of being secretly removed from the United States—or have already been transferred—to a foreign facility.</label><br>
+  <label><input type="checkbox" name="grounds_family[]" value="2"> They have not had access to a lawyer, a hearing before a judge, or any opportunity to challenge their detention in court.</label><br>
+  <label><input type="checkbox" name="grounds_family[]" value="3"> I believe this violates their constitutional rights, including the right to due process and to seek release through a habeas corpus petition.</label><br>
+  <label><input type="checkbox" name="grounds_family[]" value="4"> I am concerned that their detention conditions may amount to cruel and unusual punishment.</label>
+</fieldset>
 
-        <h3>7. Declaration</h3>
+<fieldset>
+  <legend>⚖️ <strong>Attorney:</strong></legend>
+  <label><input type="checkbox" name="grounds_attorney[]" value="1"> My client, a U.S. citizen, has been detained or transferred abroad without indictment, arraignment, access to counsel, or the ability to challenge the detention in any U.S. court.</label><br>
+  <label><input type="checkbox" name="grounds_attorney[]" value="2"> This detention violates their Fifth Amendment right to due process and effectively suspends the constitutional guarantee of habeas corpus.</label><br>
+  <label><input type="checkbox" name="grounds_attorney[]" value="3"> No statutory or constitutional authority exists for this type of extrajudicial transfer or detention. The executive’s action is unlawful and exceeds its lawful power.</label><br>
+  <label><input type="checkbox" name="grounds_attorney[]" value="4"> The conditions of confinement—particularly outside U.S. jurisdiction—may violate the Eighth Amendment's prohibition on cruel and unusual punishment.</label>
+</fieldset>
+
+<fieldset>
+  <legend>🕊️ <strong>Third-Party Advocate:</strong></legend>
+  <label><input type="checkbox" name="grounds_advocate[]" value="1"> I am not a family member or attorney, but I have credible and specific information that this person is being held without charges or legal process, possibly under executive direction.</label><br>
+  <label><input type="checkbox" name="grounds_advocate[]" value="2"> I believe the government is denying them access to the courts, and there is a serious risk they will be removed to a foreign country without judicial review.</label><br>
+  <label><input type="checkbox" name="grounds_advocate[]" value="3"> I respectfully request that the Court intervene to protect their constitutional rights and ensure they are not transferred or disappeared without due process.</label>
+</fieldset>
+
+<h3>6. Relief Requested</h3>
+<p><em>Please check all that apply. These are grouped by role. You may select more than one.</em></p>
+
+<fieldset>
+  <legend>👪 <strong>Family Member / Friend:</strong></legend>
+  <label><input type="checkbox" name="relief_family[]" value="1"> Issue emergency writ of habeas corpus to bring loved one under U.S. protection</label><br>
+  <label><input type="checkbox" name="relief_family[]" value="2"> Prevent further transfer or removal from U.S. jurisdiction</label><br>
+  <label><input type="checkbox" name="relief_family[]" value="3"> Declare the detention unlawful and ensure access to counsel and court</label>
+</fieldset>
+
+<fieldset>
+  <legend>⚖️ <strong>Attorney:</strong></legend>
+  <label><input type="checkbox" name="relief_attorney[]" value="1"> Compel return to U.S. jurisdiction via writ of habeas corpus</label><br>
+  <label><input type="checkbox" name="relief_attorney[]" value="2"> Declare executive transfer/detention policy unconstitutional</label><br>
+  <label><input type="checkbox" name="relief_attorney[]" value="3"> Grant injunctive relief to stop further illegal detention</label>
+</fieldset>
+
+<fieldset>
+  <legend>🕊️ <strong>Third-Party Advocate:</strong></legend>
+  <label><input type="checkbox" name="relief_advocate[]" value="1"> Preserve access to the U.S. legal system and prevent removal</label><br>
+  <label><input type="checkbox" name="relief_advocate[]" value="2"> Request immediate court review and protective relief</label>
+</fieldset>
+        
+<h3>7. Declaration</h3>
         <label>
           <input type="checkbox" name="declaration" required>
           I declare under penalty of perjury that the above is true to the best of my knowledge.
@@ -146,54 +181,213 @@
   <footer>
     <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
   </footer>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fallbackSelect = document.getElementById("fallback-district-select");
+    if (!fallbackSelect || !window.fallbackDistricts) return;
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const zipInput = document.getElementById("zip_code");
-      const courtInfo = document.getElementById("court-info");
-      const fallbackContainer = document.getElementById("fallback-court-container");
-      const fallbackSelect = document.getElementById("fallback-court");
-
-      const districtInput = document.getElementById("fallback-court-district");
-      const nameInput = document.getElementById("fallback-court-name");
-      const locationInput = document.getElementById("fallback-court-location");
-
-      fallbackDistricts.forEach(court => {
-        const opt = document.createElement("option");
-        opt.value = court.value;
-        opt.textContent = court.label;
-        fallbackSelect.appendChild(opt);
-      });
-
-      zipInput.addEventListener("blur", () => {
-        const zip = zipInput.value.trim();
-        if (courtMap[zip]) {
-          const court = courtMap[zip];
-          courtInfo.innerHTML = `
-            <strong>Filing District:</strong> ${court.court_name}<br>
-            <strong>Location:</strong> ${court.location}<br>
-            <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
-            <input type="hidden" name="court_district" value="${court.district}">
-            <input type="hidden" name="court_name" value="${court.court_name}">
-            <input type="hidden" name="court_location" value="${court.location}">
-          `;
-          fallbackContainer.style.display = "none";
-        } else {
-          courtInfo.innerHTML = `<em>ZIP code not recognized – please choose court manually.</em>`;
-          fallbackContainer.style.display = "block";
-        }
-      });
-
-      fallbackSelect.addEventListener("change", () => {
-        const zip = fallbackSelect.value;
-        const court = courtMap[zip];
-        if (court) {
-          districtInput.value = court.district;
-          nameInput.value = court.court_name;
-          locationInput.value = court.location;
-        }
-      });
+    fallbackDistricts.forEach(entry => {
+      const option = document.createElement("option");
+      option.value = entry.value;
+      option.textContent = entry.label;
+      fallbackSelect.appendChild(option);
     });
-  </script>
+  });
+</script>
+<script>
+  const form = document.getElementById("qtef-form");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const get = (name) => formData.get(name) || "<em>Not provided</em>";
+    const getAll = (name) => formData.getAll(name) || [];
+
+    const preview = document.createElement("section");
+    preview.id = "preview";
+    preview.innerHTML = `
+      <h2>📋 Preview Your Emergency Filing</h2>
+
+      <h3>1. Who is Being Detained?</h3>
+      <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
+      <strong>Date of Birth:</strong> ${get("detainee_dob")}<br>
+      <strong>Citizenship:</strong> ${get("citizenship")}<br>
+      <strong>Charged:</strong> ${get("charged")}</p>
+
+      <h3>2. Seizure Information</h3>
+      <p><strong>Last Known Location:</strong> ${get("last_location")}<br>
+      <strong>ZIP Code:</strong> ${get("zip_code")}<br>
+      <strong>Date of Seizure:</strong> ${get("last_seen_date")}<br>
+      <strong>Who Seized Them:</strong> ${get("arresting_agency")}<br>
+      <strong>Believed Transferred:</strong> ${get("transferred")}<br>
+      <strong>Transfer Location:</strong> ${get("transfer_location")}</p>
+
+      <h3>3. Risk of Removal</h3>
+      <p><strong>Risk of Removal:</strong> ${get("removal_risk")}<br>
+      <strong>Can Communicate:</strong> ${get("communication_possible")}</p>
+
+      <h3>4. Who Are You?</h3>
+      <p><strong>Your Name:</strong> ${get("filer_name")}<br>
+      <strong>Relationship:</strong> ${get("relationship")}<br>
+      <strong>Email:</strong> ${get("email")}<br>
+      <strong>Phone:</strong> ${get("phone")}<br>
+      <strong>Address:</strong> ${get("address")}<br>
+      <strong>Filing Basis:</strong> ${get("next_friend_basis")}</p>
+
+      <h3>5. Legal Grounds Selected</h3>
+      <p><strong>Family Member:</strong>${renderChecklist("grounds_family[]", [
+        "Detained without charges or judicial review and at risk of secret removal",
+        "No access to lawyer, judge, or court review",
+        "Violates constitutional rights including due process and habeas corpus",
+        "Detention conditions may amount to cruel and unusual punishment"
+      ])}</p>
+
+      <p><strong>Attorney:</strong>${renderChecklist("grounds_attorney[]", [
+        "Held or transferred abroad without indictment, counsel, or court access",
+        "Violates Fifth Amendment due process and suspends habeas rights",
+        "Executive acted without lawful authority",
+        "Confinement conditions may violate Eighth Amendment"
+      ])}</p>
+
+      <p><strong>Third-Party Advocate:</strong>${renderChecklist("grounds_advocate[]", [
+        "Credible information of detention without charges or legal process",
+        "Risk of removal without judicial review",
+        "Request court protection to ensure constitutional rights"
+      ])}</p>
+
+      <h3>6. Relief Requested</h3>
+      <p><strong>Family Member:</strong>${renderChecklist("relief_family[]", [
+        "Issue emergency writ of habeas corpus to bring loved one under U.S. protection",
+        "Prevent further transfer or removal from U.S. jurisdiction",
+        "Declare the detention unlawful and ensure access to counsel and court"
+      ])}</p>
+
+      <p><strong>Attorney:</strong>${renderChecklist("relief_attorney[]", [
+        "Compel return to U.S. jurisdiction via writ of habeas corpus",
+        "Declare executive transfer/detention policy unconstitutional",
+        "Grant injunctive relief to stop further illegal detention"
+      ])}</p>
+
+      <p><strong>Advocate:</strong>${renderChecklist("relief_advocate[]", [
+        "Preserve access to the U.S. legal system and prevent removal",
+        "Request immediate court review and protective relief"
+      ])}</p>
+
+      <h3>7. Declaration</h3>
+      <p><strong>Signature:</strong> ${get("signature")}<br>
+      <strong>Date:</strong> ${get("signature_date")}</p>
+    `;
+// ✅ Check if TRO conditions are met
+const shouldIncludeTRO =
+  formData.get("transferred") === "yes" ||
+  formData.get("removal_risk") === "yes";
+
+if (shouldIncludeTRO) {
+  preview.innerHTML += `
+    <h3>8. Temporary Restraining Order (TRO) Request</h3>
+    <p>
+      Based on your answers, we’ve included a draft request for emergency relief to stop any removal or transfer.
+    </p>
+    <blockquote>
+      Petitioner respectfully requests that this Court issue a Temporary Restraining Order (TRO) prohibiting the Respondents, their agents, or any U.S. government officials from transferring, removing, or otherwise relocating the detained individual from their current location or out of United States legal jurisdiction, pending judicial review of this petition.
+    </blockquote>
+    <p>
+      This section is included because your filing indicates an urgent risk of disappearance or secret transfer. You may edit or remove it before filing.
+    </p>
+  `;
+}
+    const buttons = document.createElement("div");
+    buttons.style.marginTop = "20px";
+
+   const editBtn = document.createElement("button");
+editBtn.textContent = "🔙 Go Back and Edit";
+editBtn.onclick = () => {
+  preview.remove();
+  form.style.display = "block";
+};
+
+const confirmBtn = document.createElement("button");
+confirmBtn.textContent = "✅ Confirm and Generate Filing";
+confirmBtn.onclick = () => {
+  const query = new URLSearchParams(new FormData(form)).toString();
+  window.location.href = `printable.html?${query}`;
+};
+
+    buttons.appendChild(editBtn);
+    buttons.appendChild(confirmBtn);
+    preview.appendChild(buttons);
+
+    form.style.display = "none";
+    document.querySelector("main").appendChild(preview);
+    preview.scrollIntoView({ behavior: "smooth" });
+
+    function renderChecklist(name, labels) {
+      const selections = formData.getAll(name);
+      if (selections.length === 0) return "<em> None selected</em>";
+      return "<ul>" + selections.map(v => `<li>${labels[parseInt(v) - 1]}</li>`).join("") + "</ul>";
+    }
+  });
+</script>
+  <script>
+  const courtMap = {
+    "10001": {
+      district: "Southern District of New York",
+      court_name: "U.S. District Court for the Southern District of New York",
+      location: "500 Pearl Street, New York, NY 10007",
+      website: "https://www.nysd.uscourts.gov"
+    },
+    "90001": {
+      district: "Central District of California",
+      court_name: "U.S. District Court for the Central District of California",
+      location: "350 W 1st St, Los Angeles, CA 90012",
+      website: "https://www.cacd.uscourts.gov"
+    },
+    "60601": {
+      district: "Northern District of Illinois",
+      court_name: "U.S. District Court for the Northern District of Illinois",
+      location: "219 S Dearborn St, Chicago, IL 60604",
+      website: "https://www.ilnd.uscourts.gov"
+    },
+    "94102": {
+      district: "Northern District of California",
+      court_name: "U.S. District Court for the Northern District of California",
+      location: "450 Golden Gate Ave, San Francisco, CA 94102",
+      website: "https://www.cand.uscourts.gov"
+    },
+    "33101": {
+      district: "Southern District of Florida",
+      court_name: "U.S. District Court for the Southern District of Florida",
+      location: "400 North Miami Ave, Miami, FL 33128",
+      website: "https://www.flsd.uscourts.gov"
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const zipInput = document.querySelector('input[name="zip_code"]');
+    const displayDiv = document.createElement("div");
+    displayDiv.id = "court-info";
+    displayDiv.style.marginTop = "10px";
+    zipInput.parentNode.appendChild(displayDiv);
+
+    zipInput.addEventListener("blur", () => {
+      const zip = zipInput.value.trim();
+      if (courtMap[zip]) {
+        const court = courtMap[zip];
+        displayDiv.innerHTML = `
+          <strong>Filing District:</strong> ${court.court_name}<br>
+          <strong>Location:</strong> ${court.location}<br>
+          <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
+          <input type="hidden" name="court_district" value="${court.district}">
+          <input type="hidden" name="court_name" value="${court.court_name}">
+        `;
+      } else {
+        displayDiv.innerHTML = `
+  <em>ZIP code not recognized yet—please select the closest federal court from the list below.</em>
+`;
+      }
+    });
+  });
+</script>
 </body>
 </html>
