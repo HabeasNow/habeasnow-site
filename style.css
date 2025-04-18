@@ -31,6 +31,7 @@ nav a.active {
   background: #eee;
   text-align: center;
 }
+
 /* GENERAL FIELDSET STYLES */
 fieldset {
   border: 1px solid #ccc;
@@ -49,42 +50,36 @@ legend {
   padding: 0 4px;
 }
 
-/* LABELS FOR CHECKBOXES */
-label {
-  display: block;
+/* LABEL STYLING WITH CHECKBOXES */
+fieldset label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 14px;
   margin-bottom: 12px;
-  font-size: 0.98rem;
   line-height: 1.5;
+  font-size: 0.97rem;
   cursor: pointer;
-  color: #222;
 }
 
-/* CHECKBOXES */
-input[type="checkbox"] {
-  margin-right: 10px;
-  transform: scale(1.2);
-  accent-color: #005fa3; /* Calm but clear blue */
+/* CHECKBOX ALIGNMENT */
+fieldset label input[type="checkbox"] {
+  margin-top: 4px;
+  transform: scale(1.1);
+  accent-color: #004080;
+  flex-shrink: 0;
 }
 
-/* HEADINGS */
-h3 {
-  font-size: 1.3rem;
-  color: #2c3e50;
-  margin-top: 40px;
-  margin-bottom: 10px;
+/* LABEL HOVER STATE */
+fieldset label:hover {
+  background: #f1f7fc;
+  border-color: #c0d8f0;
 }
 
-/* SMALL PRINT / GUIDANCE */
-p em {
-  font-size: 0.9rem;
-  color: #666;
-}
-.content {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
-}
-
+/* FORM ELEMENTS */
 form input,
 form textarea,
 form select {
@@ -117,60 +112,28 @@ form button:hover {
   background-color: #1c315a;
 }
 
-footer {
-  background: #222;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
-}
-/* === Section 5 & 6: Legal Grounds + Relief Checkboxes (nested structure) === */
-
-fieldset label {
-  display: block;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 12px 14px;
-  margin-bottom: 12px;
-  line-height: 1.5;
-  font-size: 0.97rem;
-  cursor: pointer;
+/* HEADINGS */
+h3 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-top: 40px;
+  margin-bottom: 10px;
 }
 
-fieldset input[type="checkbox"] {
-  margin-right: 10px;
-  transform: scale(1.1);
-  vertical-align: top;
-  accent-color: #004080; /* calm blue */
+/* SMALL PRINT / GUIDANCE */
+p em {
+  font-size: 0.9rem;
+  color: #666;
 }
 
-/* Optional: Add hover effect for clarity */
-fieldset label:hover {
-  background: #f1f7fc;
-  border-color: #c0d8f0;
-}
-fieldset label {
-  display: flex;
-  align-items: flex-start; /* or center if your text isn't multi-line */
-  gap: 12px; /* spacing between checkbox and text */
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 12px 14px;
-  margin-bottom: 12px;
-  line-height: 1.5;
-  font-size: 0.97rem;
-  cursor: pointer;
+/* PAGE CONTENT */
+.content {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
 }
 
-fieldset input[type="checkbox"] {
-  margin: 3px 0 0; /* nudges it down a bit */
-  transform: scale(1.2);
-  accent-color: #004080;
-  flex-shrink: 0;
-}
-
+/* PREVIEW BOX */
 #preview {
   background: #fefefe;
   padding: 2rem;
@@ -223,22 +186,11 @@ fieldset input[type="checkbox"] {
 #preview button:hover {
   background: #0060b0;
 }
-/* Fix for checkbox alignment and label block spacing */
-fieldset label {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 14px;
-  margin-bottom: 12px;
-  line-height: 1.5;
-  font-size: 0.97rem;
-}
 
-fieldset label input[type="checkbox"] {
-  margin-top: 4px; /* aligns checkbox better with first line of text */
-  flex-shrink: 0;
-  transform: scale(1.1);
+footer {
+  background: #222;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
 }
