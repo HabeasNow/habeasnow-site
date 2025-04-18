@@ -489,42 +489,66 @@ confirmBtn.onclick = () => {
   };
 
   document.addEventListener("DOMContentLoaded", function () {
-    const zipInput = document.querySelector('input[name="zip_code"]');
-    const fallbackSelect = document.getElementById("fallback-district-select");
-    const displayDiv = document.createElement("div");
-    displayDiv.id = "court-info";
-    displayDiv.style.marginTop = "10px";
-    zipInput.parentNode.appendChild(displayDiv);
+  const zipInput = document.querySelector('input[name="zip_code"]');
+  const fallbackSelect = document.getElementById("fallback-district-select");
+  const foreignBox = document.getElementById("foreign_seizure");
 
-    // Populate the fallback dropdown
-    if (Array.isArray(window.fallbackDistricts)) {
-      window.fallbackDistricts.forEach(entry => {
-        const opt = document.createElement("option");
-        opt.value = entry.value;
-        opt.textContent = entry.label;
-        fallbackSelect.appendChild(opt);
-      });
-    }
+  // Add court info display box
+  const displayDiv = document.createElement("div");
+  displayDiv.id = "court-info";
+  displayDiv.style.marginTop = "10px";
+  zipInput.parentNode.appendChild(displayDiv);
 
-    zipInput.addEventListener("blur", () => {
-      const zip = zipInput.value.trim();
-      if (courtMap[zip]) {
-        const court = courtMap[zip];
+  // Default court map (already declared earlier)
+  const dcCourt = {
+    district: "District of Columbia",
+    court_name: "U.S. District Court for the District of Columbia",
+    location: "333 Constitution Ave NW, Washington, DC 20001",
+    website: "https://www.dcd.uscourts.gov"
+  };
+
+  // Foreign soil override logic
+  if (foreignBox) {
+    foreignBox.addEventListener("change", () => {
+      if (foreignBox.checked) {
         displayDiv.innerHTML = `
-          <strong>Filing District:</strong> ${court.court_name}<br>
-          <strong>Location:</strong> ${court.location}<br>
-          <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
-          <input type="hidden" name="court_district" value="${court.district}">
-          <input type="hidden" name="court_name" value="${court.court_name}">
-          <input type="hidden" name="court_location" value="${court.location}">
+          <strong>Filing District:</strong> ${dcCourt.court_name}<br>
+          <strong>Location:</strong> ${dcCourt.location}<br>
+          <strong>Website:</strong> <a href="${dcCourt.website}" target="_blank">${dcCourt.website}</a>
+          <input type="hidden" name="court_district" value="${dcCourt.district}">
+          <input type="hidden" name="court_name" value="${dcCourt.court_name}">
+          <input type="hidden" name="court_location" value="${dcCourt.location}">
         `;
+        fallbackSelect.disabled = true;
+        zipInput.disabled = true;
       } else {
-        displayDiv.innerHTML = `
-          <em>ZIP code not recognized — please select the closest federal court below.</em>
-        `;
+        displayDiv.innerHTML = "";
+        fallbackSelect.disabled = false;
+        zipInput.disabled = false;
       }
     });
+  }
+
+  // ZIP code to court map
+  zipInput.addEventListener("blur", () => {
+    const zip = zipInput.value.trim();
+    if (courtMap[zip]) {
+      const court = courtMap[zip];
+      displayDiv.innerHTML = `
+        <strong>Filing District:</strong> ${court.court_name}<br>
+        <strong>Location:</strong> ${court.location}<br>
+        <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
+        <input type="hidden" name="court_district" value="${court.district}">
+        <input type="hidden" name="court_name" value="${court.court_name}">
+        <input type="hidden" name="court_location" value="${court.location}">
+      `;
+    } else {
+      displayDiv.innerHTML = `
+        <em>ZIP code not recognized — please select the closest federal court below.</em>
+      `;
+    }
   });
+});
 </script>
 </body>
 </html>
