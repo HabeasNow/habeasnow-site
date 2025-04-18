@@ -150,6 +150,27 @@ fieldset label:hover {
   background: #f1f7fc;
   border-color: #c0d8f0;
 }
+fieldset label {
+  display: flex;
+  align-items: flex-start; /* or center if your text isn't multi-line */
+  gap: 12px; /* spacing between checkbox and text */
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  font-size: 0.97rem;
+  cursor: pointer;
+}
+
+fieldset input[type="checkbox"] {
+  margin: 3px 0 0; /* nudges it down a bit */
+  transform: scale(1.2);
+  accent-color: #004080;
+  flex-shrink: 0;
+}
+
 #preview {
   background: #fefefe;
   padding: 2rem;
