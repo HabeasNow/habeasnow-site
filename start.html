@@ -70,6 +70,11 @@
   </select>
 </label><br>
 
+<label>
+  <input type="checkbox" id="foreign_seizure" name="foreign_seizure">
+  The seizure occurred at a U.S. embassy or outside the United States.
+</label><br>        
+
 <label>Date of Seizure or Last Contact:
   <input type="date" name="last_seen_date">
 </label><br>
@@ -401,7 +406,33 @@ confirmBtn.onclick = () => {
     displayDiv.id = "court-info";
     displayDiv.style.marginTop = "10px";
     zipInput.parentNode.appendChild(displayDiv);
+  // Foreign soil override logic
+  const foreignBox = document.getElementById("foreign_seizure");
+  const dcCourt = {
+    district: "District of Columbia",
+    court_name: "U.S. District Court for the District of Columbia",
+    location: "333 Constitution Ave NW, Washington, DC 20001",
+    website: "https://www.dcd.uscourts.gov"
+  };
 
+  foreignBox.addEventListener("change", () => {
+    if (foreignBox.checked) {
+      displayDiv.innerHTML = `
+        <strong>Filing District:</strong> ${dcCourt.court_name}<br>
+        <strong>Location:</strong> ${dcCourt.location}<br>
+        <strong>Website:</strong> <a href="${dcCourt.website}" target="_blank">${dcCourt.website}</a>
+        <input type="hidden" name="court_district" value="${dcCourt.district}">
+        <input type="hidden" name="court_name" value="${dcCourt.court_name}">
+        <input type="hidden" name="court_location" value="${dcCourt.location}">
+      `;
+      fallbackSelect.disabled = true;
+      zipInput.disabled = true;
+    } else {
+      displayDiv.innerHTML = "";
+      fallbackSelect.disabled = false;
+      zipInput.disabled = false;
+    }
+  });
     zipInput.addEventListener("blur", () => {
       const zip = zipInput.value.trim();
       if (courtMap[zip]) {
