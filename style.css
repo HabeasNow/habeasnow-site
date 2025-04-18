@@ -223,3 +223,22 @@ fieldset input[type="checkbox"] {
 #preview button:hover {
   background: #0060b0;
 }
+/* Fix for checkbox alignment and label block spacing */
+fieldset label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  font-size: 0.97rem;
+}
+
+fieldset label input[type="checkbox"] {
+  margin-top: 4px; /* aligns checkbox better with first line of text */
+  flex-shrink: 0;
+  transform: scale(1.1);
+}
