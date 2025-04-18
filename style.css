@@ -195,7 +195,7 @@ footer {
   margin-top: 2rem;
 }
 
-<style>
+
   fieldset label {
     display: flex;
     align-items: flex-start;
@@ -224,7 +224,7 @@ footer {
     flex-shrink: 0;
     accent-color: #004080;
   }
-</style>
+
 
 
 
