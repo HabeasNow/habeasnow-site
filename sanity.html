@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkbox Sanity Test</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      background: #fdfdfd;
+    }
+
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px 20px;
+      background-color: #f9f9f9;
+    }
+
+    legend {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 1em;
+    }
+
+    label {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.6;
+      cursor: pointer;
+      margin-bottom: 1em;
+    }
+
+    label input[type="checkbox"] {
+      vertical-align: middle;
+      margin-right: 0.5em;
+      accent-color: #004080;
+    }
+  </style>
+</head>
+<body>
+
+  <fieldset>
+    <legend>Checkbox Sanity Check</legend>
+
+    <label>
+      <input type="checkbox" name="item1" value="1">
+      This is a perfectly inline checkbox with a long sentence that should wrap gracefully onto the next line without breaking layout.
+    </label>
+
+    <label>
+      <input type="checkbox" name="item2" value="2">
+      This is another example that should look exactly the same.
+    </label>
+
+    <label>
+      <input type="checkbox" name="item3" value="3">
+      If this looks wrong, it’s your global stylesheet.
+    </label>
+  </fieldset>
+
+</body>
+</html>
