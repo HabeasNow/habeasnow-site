@@ -197,7 +197,7 @@ footer {
   margin-top: 2rem;
 }
 
-/* ALIGN THE CHECKBOXES */
+/* ALIGN THE CHECKBOXES 
 ul.checkbox-list {
   list-style: none;         /* Remove default bullets */
   padding-left: 0;          /* Align with fieldset edge */
@@ -248,3 +248,5 @@ ul.checkbox-list input[type="checkbox"] {
   accent-color: #004080;
 }
 */
+*/
+
