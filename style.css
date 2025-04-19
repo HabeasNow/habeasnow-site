@@ -53,39 +53,41 @@ legend {
 
 /* LABEL STYLING WITH CHECKBOXES */
 fieldset label {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  background: #f1f7fc;
-  border: 1px solid #c0d8f0;
-  border-radius: 6px;
-  padding: 14px;
-  margin-bottom: 12px;
-  line-height: 1.5;
-  font-size: 0.97rem;
-  cursor: pointer;
-  flex-wrap: wrap;
-  word-break: break-word;
+    display: flex; /* Use flex for better alignment */
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 12px;
 }
 
 fieldset label span {
-  flex: 1;
-  min-width: 0;
-  display: inline-block;
+    flex: 1;
+    display: flex;
+    align-items: center; /* Align text and checkbox vertically */
+    gap: 12px;
+    background: #f1f7fc;
+    border: 1px solid #c0d8f0;
+    border-radius: 6px;
+    padding: 14px;
+    line-height: 1.5;
+    font-size: 0.97rem;
+    cursor: pointer;
+    word-break: break-word;
 }
+
 
 fieldset label:hover {
   background: #f1f7fc;
   border-color: #c0d8f0;
 }
 
-/* CHECKBOX ALIGNMENT */
-fieldset label input[type="checkbox"] {
-  margin-top: 4px;
-  transform: scale(1.2);
-  accent-color: #004080;
-  flex-shrink: 0;
+/* CHECKBOX ALIGNMENT */fieldset label span input[type="checkbox"] {
+    margin: 0; /* Reset margin */
+    vertical-align: middle; /* Align with text */
+    transform: scale(1.2); /* Adjust size */
+    flex-shrink: 0; /* Prevent shrinking */
+    accent-color: #004080;
 }
+
 
 /* FORM ELEMENTS */
 form input,
