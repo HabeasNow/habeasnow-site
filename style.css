@@ -56,18 +56,19 @@ legend {
   padding: 0 4px;
 }
 
+/* --- CHECKBOX INLINE STYLING --- */
 fieldset label {
-  display: inline-block;
-  margin-bottom: 12px;
-  font-size: 0.97rem;
-  line-height: 1.5;
+  display: block;
+  font-size: 1rem;
+  line-height: 1.6;
   cursor: pointer;
+  margin-bottom: 1em;
 }
 
 fieldset label input[type="checkbox"] {
-  margin-right: 0.5em;
-  accent-color: #004080;
   vertical-align: middle;
+  margin-right: 0.6em;
+  accent-color: #004080;
 }
 /* FORM ELEMENTS */
 form input,
@@ -184,4 +185,18 @@ footer {
   text-align: center;
   padding: 1rem;
   margin-top: 2rem;
+}
+/* --- CHECKBOX INLINE STYLING --- */
+fieldset label {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.6;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+fieldset label input[type="checkbox"] {
+  vertical-align: middle;
+  margin-right: 0.6em;
+  accent-color: #004080;
 }
