@@ -196,3 +196,27 @@ footer {
   padding: 1rem;
   margin-top: 2rem;
 }
+
+/* ALIGN THE CHECKBOXES */
+ul.checkbox-list {
+  list-style: none;         /* Remove default bullets */
+  padding-left: 0;          /* Align with fieldset edge */
+  margin-bottom: 0;
+}
+
+ul.checkbox-list li {
+  margin-bottom: 12px;
+}
+
+ul.checkbox-list label {
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+
+ul.checkbox-list input[type="checkbox"] {
+  margin-right: 10px;
+  margin-top: 2px;
+  accent-color: #004080;
+}
