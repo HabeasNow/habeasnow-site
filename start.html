@@ -140,7 +140,7 @@
         
         <h3>5. Legal Grounds for Relief</h3>
 <p><em>Please review and check all statements that apply. These are grouped by role to guide your selections.</em></p>
-
+<!--Trying a new checkbox soln at 0947 saturday
 <fieldset>
   <legend>👪 <strong>Family Member / Friend:</strong></legend>
   <label><span><input type="checkbox" name="grounds_family[]" value="1">My family member is a U.S. citizen who has been detained without charges or judicial review, and I believe they are at risk of being secretly removed from the United States—or have already been transferred—to a foreign facility.</span></label><br>
@@ -148,7 +148,40 @@
   <label><span><input type="checkbox" name="grounds_family[]" value="3">I believe this violates their constitutional rights, including the right to due process and to seek release through a habeas corpus petition.</span></label><br>
   <label><span><input type="checkbox" name="grounds_family[]" value="4">I am concerned that their detention conditions may amount to cruel and unusual punishment.</span></label>
 </fieldset>
-
+        -->
+<!--insert new Family Member Section-->
+<fieldset>
+  <legend>👪 <strong>Family Member / Friend:</strong></legend>
+  <ul class="checkbox-list">
+    <li>
+      <label>
+        <input type="checkbox" name="grounds_family[]" value="1">
+        My family member is a U.S. citizen who has been detained without charges or judicial review, and I believe they are at risk of being secretly removed from the United States—or have already been transferred—to a foreign facility.
+      </label>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" name="grounds_family[]" value="2">
+        They have not had access to a lawyer, a hearing before a judge, or any opportunity to challenge their detention in court.
+      </label>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" name="grounds_family[]" value="3">
+        I believe this violates their constitutional rights, including the right to due process and to seek release through a habeas corpus petition.
+      </label>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" name="grounds_family[]" value="4">
+        I am concerned that their detention conditions may amount to cruel and unusual punishment.
+      </label>
+    </li>
+  </ul>
+</fieldset>
+        
+        <!--END insert new Family Member Section-->
+        
 <fieldset>
   <legend>⚖️ <strong>Attorney:</strong></legend>
   <label><span><input type="checkbox" name="grounds_attorney[]" value="1">My client, a U.S. citizen, has been detained or transferred abroad without indictment, arraignment, access to counsel, or the ability to challenge the detention in any U.S. court.</span></label><br>
