@@ -30,9 +30,12 @@ nav a.active {
 .hero {
   padding: 2rem;
   background: #eee;
-  text-align: center;
+  text-align: left; /* default block alignment */
 }
 
+.hero h2 {
+  text-align: center; /* override only for heading */
+}
 /* GENERAL FIELDSET STYLES */
 fieldset {
   border: 1px solid #ccc;
