@@ -17,12 +17,14 @@
 
   h1, h2, h3 {
     font-weight: bold;
+    text-align: center;
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
 
   h3 {
     font-size: 1.1rem;
+    text-align: left;
     margin-top: 1.5rem;
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.25rem;
@@ -56,26 +58,29 @@
   }
 
   button {
-    display: none !important;
-  }
-
-  .page-break {
-    page-break-before: always;
+    display: none !important; /* Hide buttons on printable version */
   }
 </style>
 </head>
 <body>
+  <header>
+    <h1>HabeasNow</h1>
+    <p class="tagline">Printable Emergency Filing</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="start.html">Start Petition</a>
+    </nav>
+  </header>
+
   <main>
     <section class="content">
-      <div id="output"></div>
+      <p><strong></strong></p>
 
-      <div class="page-break"></div>
+      <div id="output"></div>
 
       <h3>Signature</h3>
       <p><strong>Signature of Petitioner or Next Friend:</strong> ________________________________</p>
       <p><strong>Date:</strong> ____________________</p>
-
-      <div class="page-break"></div>
 
       <h3>Service Instructions</h3>
       <p>After completing this filing, you must:</p>
@@ -91,8 +96,6 @@
         </li>
       </ol>
       <p>Where possible, serve by certified mail with return receipt and email a copy to the local U.S. Attorney’s office. In urgent cases, courts may also accept in-person drop-off or fax delivery.</p>
-
-      <div class="page-break"></div>
 
       <h3>Proof of Service (To Be Completed After Filing)</h3>
       <p>I certify that on __________ [date], I served a copy of this petition on the following:</p>
@@ -121,7 +124,7 @@
       };
 
       document.getElementById("output").innerHTML = `
-        <h2>Emergency Habeas Filing – Draft</h2>
+        <h2>📋 Emergency Habeas Filing – Draft</h2>
 
         <h3>1. Who is Being Detained?</h3>
         <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
@@ -137,7 +140,7 @@
         <strong>Believed Transferred:</strong> ${get("transferred")}<br>
         <strong>Transfer Location:</strong> ${get("transfer_location")}</p>
 
-        <h3>Filing Court</h3>
+        <h4>📍 Filing Court</h4>
         <p><strong>District:</strong> ${get("court_district")}<br>
         <strong>Court Name:</strong> ${get("court_name")}<br>
         <strong>Location:</strong> ${get("court_location")}</p>
