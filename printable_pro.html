@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Legal Filing – Preview</title>
+  <link rel="stylesheet" href="style.css">
+<style>
+  body {
+    font-family: "Century Schoolbook", Georgia, "Times New Roman", serif;
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+    margin: 1in;
+  }
+
+  h1, h2, h3 {
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.25rem;
+  }
+
+  p {
+    margin-bottom: 1.2rem;
+    text-align: left;
+  }
+
+  ul {
+    margin-left: 1.5rem;
+    padding-left: 0.5rem;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+    color: #444;
+  }
+
+  blockquote {
+    margin: 1rem 2rem;
+    padding-left: 1rem;
+    border-left: 3px solid #888;
+    font-style: italic;
+    color: #333;
+  }
+
+  button {
+    display: none !important;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+  <main>
+    <section class="content">
+      <div id="output"></div>
+
+      <div class="page-break"></div>
+
+      <h3>Signature</h3>
+      <p><strong>Signature of Petitioner or Next Friend:</strong> ________________________________</p>
+      <p><strong>Date:</strong> ____________________</p>
+
+      <div class="page-break"></div>
+
+      <h3>Service Instructions</h3>
+      <p>After completing this filing, you must:</p>
+      <ol>
+        <li>File it with the Clerk of the appropriate U.S. District Court.</li>
+        <li>Serve a copy on the U.S. Attorney General:<br>
+          <strong>U.S. Department of Justice</strong><br>
+          950 Pennsylvania Avenue NW<br>
+          Washington, DC 20530-0001
+        </li>
+        <li>Serve a copy on the U.S. Attorney for the district where the petition is filed. <br>
+          <a href="https://www.justice.gov/usao/us-attorneys-listing" target="_blank">Find your local U.S. Attorney here.</a>
+        </li>
+      </ol>
+      <p>Where possible, serve by certified mail with return receipt and email a copy to the local U.S. Attorney’s office. In urgent cases, courts may also accept in-person drop-off or fax delivery.</p>
+
+      <div class="page-break"></div>
+
+      <h3>Proof of Service (To Be Completed After Filing)</h3>
+      <p>I certify that on __________ [date], I served a copy of this petition on the following:</p>
+      <ul>
+        <li>☐ U.S. Attorney General (Certified Mail or Personal Delivery)</li>
+        <li>☐ Local U.S. Attorney (Certified Mail, Email, or Personal Delivery)</li>
+      </ul>
+      <p>Signature of Person Serving Documents: ____________________________</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared for immediate filing in a United States District Court under 28 U.S.C. § 2241.</p>
+  </footer>
+
+  <script>
+    function renderReadableOutput() {
+      const params = new URLSearchParams(window.location.search);
+      const get = (key) => params.get(key) || "<em>Not provided</em>";
+      const getAll = (name) => params.getAll(name);
+
+      const renderList = (name, labels) => {
+        const selections = getAll(name);
+        if (!selections.length) return "<em>None selected</em>";
+        return "<ul>" + selections.map(v => `<li>${labels[parseInt(v) - 1]}</li>`).join("") + "</ul>";
+      };
+
+      document.getElementById("output").innerHTML = `
+        <h2>Emergency Habeas Filing – Draft</h2>
+
+        <h3>1. Who is Being Detained?</h3>
+        <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
+        <strong>Date of Birth:</strong> ${get("detainee_dob")}<br>
+        <strong>Citizenship:</strong> ${get("citizenship")}<br>
+        <strong>Charged:</strong> ${get("charged")}</p>
+
+        <h3>2. Seizure Information</h3>
+        <p><strong>Last Known Location:</strong> ${get("last_location")}<br>
+        <strong>ZIP Code:</strong> ${get("zip_code")}<br>
+        <strong>Date of Seizure:</strong> ${get("last_seen_date")}<br>
+        <strong>Who Seized Them:</strong> ${get("arresting_agency") === "federal" ? "Agents of the federal government" : get("arresting_agency")}<br>
+        <strong>Believed Transferred:</strong> ${get("transferred")}<br>
+        <strong>Transfer Location:</strong> ${get("transfer_location")}</p>
+
+        <h3>Filing Court</h3>
+        <p><strong>District:</strong> ${get("court_district")}<br>
+        <strong>Court Name:</strong> ${get("court_name")}<br>
+        <strong>Location:</strong> ${get("court_location")}</p>
+
+        <h3>3. Risk of Removal</h3>
+        <p><strong>Risk of Removal:</strong> ${get("removal_risk")}<br>
+        <strong>Can Communicate:</strong> ${get("communication_possible")}</p>
+
+        <h3>4. Who Is Filing?</h3>
+        <p><strong>Name:</strong> ${get("filer_name")}<br>
+        <strong>Relationship:</strong> ${get("relationship")}<br>
+        <strong>Email:</strong> ${get("email")}<br>
+        <strong>Phone:</strong> ${get("phone")}<br>
+        <strong>Address:</strong> ${get("address")}<br>
+        <strong>Filing Basis:</strong> ${get("next_friend_basis")}</p>
+
+        <h3>5. Legal Grounds</h3>
+        <p><strong>Family Member:</strong>${renderList("grounds_family[]", [
+          "Detained without charges or judicial review and at risk of secret removal",
+          "No access to lawyer, judge, or court review",
+          "Violates constitutional rights including due process and habeas corpus",
+          "Detention conditions may amount to cruel and unusual punishment"
+        ])}</p>
+
+        <p><strong>Attorney:</strong>${renderList("grounds_attorney[]", [
+          "Held or transferred abroad without indictment, counsel, or court access",
+          "Violates Fifth Amendment due process and suspends habeas rights",
+          "Executive acted without lawful authority",
+          "Confinement conditions may violate Eighth Amendment"
+        ])}</p>
+
+        <p><strong>Advocate:</strong>${renderList("grounds_advocate[]", [
+          "Credible information of detention without charges or legal process",
+          "Risk of removal without judicial review",
+          "Request court protection to ensure constitutional rights"
+        ])}</p>
+
+        <h3>6. Relief Requested</h3>
+        <p><strong>Family Member:</strong>${renderList("relief_family[]", [
+          "Issue emergency writ of habeas corpus to bring loved one under U.S. protection",
+          "Prevent further transfer or removal from U.S. jurisdiction",
+          "Declare the detention unlawful and ensure access to counsel and court"
+        ])}</p>
+
+        <p><strong>Attorney:</strong>${renderList("relief_attorney[]", [
+          "Compel return to U.S. jurisdiction via writ of habeas corpus",
+          "Declare executive transfer/detention policy unconstitutional",
+          "Grant injunctive relief to stop further illegal detention"
+        ])}</p>
+
+        <p><strong>Advocate:</strong>${renderList("relief_advocate[]", [
+          "Preserve access to the U.S. legal system and prevent removal",
+          "Request immediate court review and protective relief"
+        ])}</p>
+
+        <h3>7. Declaration</h3>
+        <p><strong>Signature:</strong> ${get("signature")}<br>
+        <strong>Date:</strong> ${get("signature_date")}</p>
+      `;
+    }
+
+    window.onload = renderReadableOutput;
+  </script>
+</body>
+</html>
