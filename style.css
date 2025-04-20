@@ -28,9 +28,11 @@ nav a.active {
 }
 
 .hero {
-  padding: 2rem;
   background: #eee;
   text-align: left;
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
 }
 
 .hero h2 {
