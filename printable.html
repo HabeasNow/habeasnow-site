@@ -136,15 +136,27 @@
         <h3>1. Who is Being Detained?</h3>
         <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
         <strong>Date of Birth:</strong> ${get("detainee_dob")}<br>
-        <strong>Citizenship:</strong> ${get("citizenship")}<br>
+        <strong>Citizenship:</strong> ${
+  {
+    us: "United States Citizen",
+    green_card: "Lawful Permanent Resident (Green Card Holder)",
+    other: "Other"
+  }[get("citizenship")] || "<em>Not provided</em>"
+}<br>
         <strong>Charged:</strong> ${get("charged")}</p>
 
         <h3>2. Seizure Information</h3>
         <p><strong>Last Known Location:</strong> ${get("last_location")}<br>
         <strong>ZIP Code:</strong> ${get("zip_code")}<br>
         <strong>Date of Seizure:</strong> ${get("last_seen_date")}<br>
-        <strong>Who Seized Them:</strong> ${get("arresting_agency") === "federal" ? "Agents of the federal government" : get("arresting_agency")}<br>
-        <strong>Believed Transferred:</strong> ${get("transferred")}<br>
+        <strong>Who Seized Them:</strong> ${
+  {
+    federal: "Federal Agents (DHS, FBI, ICE, etc.)",
+    local: "Local or State Police",
+    foreign: "Foreign Government Agents",
+    unknown: "Unknown or Unconfirmed"
+  }[get("arresting_agency")] || "<em>Not provided</em>"
+}<br><strong>Believed Transferred:</strong> ${get("transferred")}<br>
         <strong>Transfer Location:</strong> ${get("transfer_location")}</p>
 
         <h3>Filing Court</h3>
