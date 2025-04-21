@@ -66,8 +66,10 @@
   <input type="text" name="zip_code" id="zip_code" pattern="\d{5}" required>
 </label><br>
 
-<!-- Court display after ZIP lookup -->
-<div id="court-info" style="margin-top: 0.5em;"></div>
+<!-- Court display and hidden fields go here -->
+<div id="court-info-wrapper" style="margin-top: 0.5em;">
+  <div id="court-info"></div>
+</div>
 
 <label>If you don’t know the ZIP code or it wasn't recognized, select the nearest court:
   <select name="fallback_district" id="fallback-district-select">
@@ -401,93 +403,7 @@ confirmBtn.onclick = () => {
     }
   });
 </script>
- <!-- uploading the new one 1420 fri <script>
-  const courtMap = {
-    "10001": {
-      district: "Southern District of New York",
-      court_name: "U.S. District Court for the Southern District of New York",
-      location: "500 Pearl Street, New York, NY 10007",
-      website: "https://www.nysd.uscourts.gov"
-    },
-    "90001": {
-      district: "Central District of California",
-      court_name: "U.S. District Court for the Central District of California",
-      location: "350 W 1st St, Los Angeles, CA 90012",
-      website: "https://www.cacd.uscourts.gov"
-    },
-    "60601": {
-      district: "Northern District of Illinois",
-      court_name: "U.S. District Court for the Northern District of Illinois",
-      location: "219 S Dearborn St, Chicago, IL 60604",
-      website: "https://www.ilnd.uscourts.gov"
-    },
-    "94102": {
-      district: "Northern District of California",
-      court_name: "U.S. District Court for the Northern District of California",
-      location: "450 Golden Gate Ave, San Francisco, CA 94102",
-      website: "https://www.cand.uscourts.gov"
-    },
-    "33101": {
-      district: "Southern District of Florida",
-      court_name: "U.S. District Court for the Southern District of Florida",
-      location: "400 North Miami Ave, Miami, FL 33128",
-      website: "https://www.flsd.uscourts.gov"
-    }
-  };
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const zipInput = document.querySelector('input[name="zip_code"]');
-    const displayDiv = document.createElement("div");
-    displayDiv.id = "court-info";
-    displayDiv.style.marginTop = "10px";
-    zipInput.parentNode.appendChild(displayDiv);
-  // Foreign soil override logic
-  const foreignBox = document.getElementById("foreign_seizure");
-  const dcCourt = {
-    district: "District of Columbia",
-    court_name: "U.S. District Court for the District of Columbia",
-    location: "333 Constitution Ave NW, Washington, DC 20001",
-    website: "https://www.dcd.uscourts.gov"
-  };
-
-  foreignBox.addEventListener("change", () => {
-    if (foreignBox.checked) {
-      displayDiv.innerHTML = `
-        <strong>Filing District:</strong> ${dcCourt.court_name}<br>
-        <strong>Location:</strong> ${dcCourt.location}<br>
-        <strong>Website:</strong> <a href="${dcCourt.website}" target="_blank">${dcCourt.website}</a>
-        <input type="hidden" name="court_district" value="${dcCourt.district}">
-        <input type="hidden" name="court_name" value="${dcCourt.court_name}">
-        <input type="hidden" name="court_location" value="${dcCourt.location}">
-      `;
-      fallbackSelect.disabled = true;
-      zipInput.disabled = true;
-    } else {
-      displayDiv.innerHTML = "";
-      fallbackSelect.disabled = false;
-      zipInput.disabled = false;
-    }
-  });
-    zipInput.addEventListener("blur", () => {
-      const zip = zipInput.value.trim();
-      if (courtMap[zip]) {
-        const court = courtMap[zip];
-        displayDiv.innerHTML = `
-          <strong>Filing District:</strong> ${court.court_name}<br>
-          <strong>Location:</strong> ${court.location}<br>
-          <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
-          <input type="hidden" name="court_district" value="${court.district}">
-          <input type="hidden" name="court_name" value="${court.court_name}">
-        `;
-      } else {
-        displayDiv.innerHTML = `
-  <em>ZIP code not recognized yet—please select the closest federal court from the list below.</em>
-`;
-      }
-    });
-  });
-</script>   
-  ##end uploading the 1420 fri/-->
   <script src="fallbackDistricts.js"></script>
 <script>
   const courtMap = {
@@ -565,23 +481,31 @@ confirmBtn.onclick = () => {
   }
 
   // ZIP code to court map
-  zipInput.addEventListener("blur", () => {
-    const zip = zipInput.value.trim();
-    if (courtMap[zip]) {
-      const court = courtMap[zip];
-      displayDiv.innerHTML = `
-        <strong>Filing District:</strong> ${court.court_name}<br>
-        <strong>Location:</strong> ${court.location}<br>
-        <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
-        <input type="hidden" name="court_district" value="${court.district}">
-        <input type="hidden" name="court_name" value="${court.court_name}">
-        <input type="hidden" name="court_location" value="${court.location}">
-      `;
-    } else {
-      displayDiv.innerHTML = `
-        <em>ZIP code not recognized — please select the closest federal court below.</em>
-      `;
-    }
+ if (courtMap[zip]) {
+  const court = courtMap[zip];
+  const wrapper = document.getElementById("court-info-wrapper");
+  const infoBox = document.getElementById("court-info");
+
+  infoBox.innerHTML = `
+    <strong>Filing District:</strong> ${court.court_name}<br>
+    <strong>Location:</strong> ${court.location}<br>
+    <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
+  `;
+
+  wrapper.querySelectorAll("input[name^='court_']").forEach(el => el.remove());
+
+  const hiddenInputs = `
+    <input type="hidden" name="court_district" value="${court.district}">
+    <input type="hidden" name="court_name" value="${court.court_name}">
+    <input type="hidden" name="court_location" value="${court.location}">
+  `;
+
+  wrapper.insertAdjacentHTML("beforeend", hiddenInputs);
+} else {
+  displayDiv.innerHTML = `
+    <em>ZIP code not recognized — please select the closest federal court below.</em>
+  `;
+}
   });
 });
 </script>
