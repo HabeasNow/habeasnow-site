@@ -15,11 +15,19 @@
     margin: 1in;
   }
 
-  h1, h2, h3 {
+  h1, h3 {
     font-weight: bold;
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
+
+  h2 {
+  font-weight: bold;
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
 
   h3 {
     font-size: 1.1rem;
@@ -111,7 +119,7 @@
   <script>
     function renderReadableOutput() {
       const params = new URLSearchParams(window.location.search);
-      const get = (key) => params.get(key) || "<em>Not provided</em>";
+      const get = (key) => params.get(key) || "";
       const getAll = (name) => params.getAll(name);
 
       const renderList = (name, labels) => {
@@ -121,7 +129,9 @@
       };
 
       document.getElementById("output").innerHTML = `
-        <h2>Emergency Habeas Filing – Draft</h2>
+        <h2 style="text-align: left; font-size: 1.4rem; margin-bottom: 1.5rem;">
+  Emergency Petition for Writ of Habeas Corpus
+</h2>
 
         <h3>1. Who is Being Detained?</h3>
         <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
