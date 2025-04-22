@@ -239,18 +239,15 @@
   </footer>
 
 <script>
-  const form = document.getElementById("qtef-form");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    const get = (name) => formData.get(name) || "<em>Not provided</em>";
-    const getAll = (name) => formData.getAll(name) || [];
-
-    const preview = document.createElement("section");
-    preview.id = "preview";
-    preview.innerHTML = `
+    const form = document.getElementById("qtef-form");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const get = (name) => formData.get(name) || "<em>Not provided</em>";
+      const getAll = (name) => formData.getAll(name) || [];
+      const preview = document.createElement("section");
+      preview.id = "preview";
+      preview.innerHTML =  `...`;
       <h2>📋 Preview Your Emergency Filing</h2>
 
       <h3>1. Who is Being Detained?</h3>
@@ -337,8 +334,7 @@
     `;
 // ✅ Check if TRO conditions are met
 const shouldIncludeTRO =
-  formData.get("transferred") === "yes" ||
-  formData.get("removal_risk") === "yes";
+  formData.get("transferred") === "yes" || formData.get("removal_risk") === "yes";
 
 if (shouldIncludeTRO) {
   preview.innerHTML += `
@@ -370,7 +366,6 @@ confirmBtn.onclick = () => {
   const query = new URLSearchParams(new FormData(form)).toString();
   window.location.href = `printable.html?${query}`;
 };
-
     buttons.appendChild(editBtn);
     buttons.appendChild(confirmBtn);
     preview.appendChild(buttons);
@@ -387,15 +382,13 @@ confirmBtn.onclick = () => {
   });
 </script>
 
-  <script src="fallbackDistricts.js"></script>
 <script>
-  // pasting at 1011 high
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const zipInput = document.querySelector('input[name="zip_code"]');
   const fallbackSelect = document.getElementById("fallback-district-select");
   const wrapper = document.getElementById("court-info-wrapper");
   const infoBox = document.getElementById("court-info");
-  //end 1011 paste low
+
   const courtMap = {
     "10001": {
       district: "Southern District of New York",
@@ -429,13 +422,7 @@ confirmBtn.onclick = () => {
     }
   };
 
-document.addEventListener("DOMContentLoaded", function () {
-  const zipInput = document.querySelector('input[name="zip_code"]');
-  const fallbackSelect = document.getElementById("fallback-district-select");
-  const wrapper = document.getElementById("court-info-wrapper");
-  const infoBox = document.getElementById("court-info");
-
-  // Add options to the fallback select
+  // Inject fallback district options
   if (fallbackSelect && window.fallbackDistricts) {
     fallbackDistricts.forEach(entry => {
       const option = document.createElement("option");
@@ -445,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ZIP code logic
+  // ZIP lookup logic
   zipInput.addEventListener("blur", () => {
     const zip = zipInput.value;
 
