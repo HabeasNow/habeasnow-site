@@ -384,6 +384,7 @@ confirmBtn.onclick = () => {
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("qtef-form");
   const zipInput = document.querySelector('input[name="zip_code"]');
   const fallbackSelect = document.getElementById("fallback-district-select");
   const wrapper = document.getElementById("court-info-wrapper");
@@ -422,7 +423,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // Inject fallback district options
   if (fallbackSelect && window.fallbackDistricts) {
     fallbackDistricts.forEach(entry => {
       const option = document.createElement("option");
@@ -432,7 +432,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ZIP lookup logic
   zipInput.addEventListener("blur", () => {
     const zip = zipInput.value;
 
@@ -457,6 +456,73 @@ document.addEventListener("DOMContentLoaded", function () {
         <em>ZIP code not recognized — please select the closest federal court below.</em>
       `;
     }
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const get = (name) => formData.get(name) || "<em>Not provided</em>";
+    const getAll = (name) => formData.getAll(name) || [];
+
+    const preview = document.createElement("section");
+    preview.id = "preview";
+
+    function renderChecklist(name, labels) {
+      const selections = formData.getAll(name);
+      if (selections.length === 0) return "<em> None selected</em>";
+      return "<ul>" + selections.map(v => `<li>${labels[parseInt(v) - 1]}</li>`).join("") + "</ul>";
+    }
+
+    preview.innerHTML = `
+      <h2>📋 Preview Your Emergency Filing</h2>
+      <h3>1. Who is Being Detained?</h3>
+      <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
+      <strong>Date of Birth:</strong> ${get("detainee_dob")}<br>
+      <strong>Citizenship:</strong> ${get("citizenship")}<br>
+      <strong>Charged:</strong> ${get("charged")}</p>
+      ... (TRIMMED FOR SPACE)
+    `;
+
+    const shouldIncludeTRO =
+      formData.get("transferred") === "yes" ||
+      formData.get("removal_risk") === "yes";
+
+    if (shouldIncludeTRO) {
+      preview.innerHTML += `
+        <h3>8. Temporary Restraining Order (TRO) Request</h3>
+        <p>Based on your answers, we’ve included a draft request for emergency relief to stop any removal or transfer.</p>
+        <blockquote>
+          Petitioner respectfully requests that this Court issue a Temporary Restraining Order (TRO) prohibiting the Respondents, their agents, or any U.S. government officials from transferring, removing, or otherwise relocating the detained individual from their current location or out of United States legal jurisdiction, pending judicial review of this petition.
+        </blockquote>
+        <p>This section is included because your filing indicates an urgent risk of disappearance or secret transfer. You may edit or remove it before filing.</p>
+      `;
+    }
+
+    const buttons = document.createElement("div");
+    buttons.style.marginTop = "20px";
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "🔙 Go Back and Edit";
+    editBtn.onclick = () => {
+      preview.remove();
+      form.style.display = "block";
+    };
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.textContent = "✅ Confirm and Generate Filing";
+    confirmBtn.onclick = () => {
+      const query = new URLSearchParams(new FormData(form)).toString();
+      window.location.href = `printable.html?${query}`;
+    };
+
+    buttons.appendChild(editBtn);
+    buttons.appendChild(confirmBtn);
+    preview.appendChild(buttons);
+
+    form.style.display = "none";
+    document.querySelector("main").appendChild(preview);
+    preview.scrollIntoView({ behavior: "smooth" });
   });
 });
 </script>
