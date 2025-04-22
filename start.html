@@ -71,17 +71,13 @@
   <div id="court-info"></div>
 </div>
 
-<label>If you don’t know the ZIP code or it wasn't recognized, select the nearest court:
+
+<label>If you don’t know the ZIP code or it wasn't recognized, select the nearest court.   If the seizure occurred at a U.S. embassy or outside the United States, please select “U.S. District Court for the District of Columbia” from the list below.
   <select name="fallback_district" id="fallback-district-select">
     <option value="">Choose a federal district court...</option>
     <!-- Populated dynamically -->
   </select>
-</label><br>
-
-<label>
-  <input type="checkbox" id="foreign_seizure" name="foreign_seizure">
-  The seizure occurred at a U.S. embassy or outside the United States.
-</label><br>        
+</label><br>      
 
 <label>Who Seized Them?
   <select name="arresting_agency">
@@ -242,19 +238,7 @@
   <footer>
     <p>&copy; 2025 HabeasNow.org. No data is stored. This tool is open-source and privacy-first.</p>
   </footer>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const fallbackSelect = document.getElementById("fallback-district-select");
-    if (!fallbackSelect || !window.fallbackDistricts) return;
 
-    fallbackDistricts.forEach(entry => {
-      const option = document.createElement("option");
-      option.value = entry.value;
-      option.textContent = entry.label;
-      fallbackSelect.appendChild(option);
-    });
-  });
-</script>
 <script>
   const form = document.getElementById("qtef-form");
 
@@ -406,6 +390,13 @@ confirmBtn.onclick = () => {
 
   <script src="fallbackDistricts.js"></script>
 <script>
+  // pasting at 1011 high
+  document.addEventListener("DOMContentLoaded", function () {
+  const zipInput = document.querySelector('input[name="zip_code"]');
+  const fallbackSelect = document.getElementById("fallback-district-select");
+  const wrapper = document.getElementById("court-info-wrapper");
+  const infoBox = document.getElementById("court-info");
+  //end 1011 paste low
   const courtMap = {
     "10001": {
       district: "Southern District of New York",
@@ -439,73 +430,47 @@ confirmBtn.onclick = () => {
     }
   };
 
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const zipInput = document.querySelector('input[name="zip_code"]');
   const fallbackSelect = document.getElementById("fallback-district-select");
-  const foreignBox = document.getElementById("foreign_seizure");
-
-  // Add court info display box
-  const displayDiv = document.createElement("div");
-  displayDiv.id = "court-info";
-  displayDiv.style.marginTop = "10px";
-  zipInput.parentNode.appendChild(displayDiv);
-
-  // Default court map (already declared earlier)
-  const dcCourt = {
-    district: "District of Columbia",
-    court_name: "U.S. District Court for the District of Columbia",
-    location: "333 Constitution Ave NW, Washington, DC 20001",
-    website: "https://www.dcd.uscourts.gov"
-  };
-
-  // Foreign soil override logic
-  if (foreignBox) {
-    foreignBox.addEventListener("change", () => {
-      if (foreignBox.checked) {
-        displayDiv.innerHTML = `
-          <strong>Filing District:</strong> ${dcCourt.court_name}<br>
-          <strong>Location:</strong> ${dcCourt.location}<br>
-          <strong>Website:</strong> <a href="${dcCourt.website}" target="_blank">${dcCourt.website}</a>
-          <input type="hidden" name="court_district" value="${dcCourt.district}">
-          <input type="hidden" name="court_name" value="${dcCourt.court_name}">
-          <input type="hidden" name="court_location" value="${dcCourt.location}">
-        `;
-        fallbackSelect.disabled = true;
-        zipInput.disabled = true;
-      } else {
-        displayDiv.innerHTML = "";
-        fallbackSelect.disabled = false;
-        zipInput.disabled = false;
-      }
-    });
-  }
-
-  // ZIP code to court map
- if (courtMap[zip]) {
-  const court = courtMap[zip];
   const wrapper = document.getElementById("court-info-wrapper");
   const infoBox = document.getElementById("court-info");
 
-  infoBox.innerHTML = `
-    <strong>Filing District:</strong> ${court.court_name}<br>
-    <strong>Location:</strong> ${court.location}<br>
-    <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
-  `;
+  // Add options to the fallback select
+  if (fallbackSelect && window.fallbackDistricts) {
+    fallbackDistricts.forEach(entry => {
+      const option = document.createElement("option");
+      option.value = entry.value;
+      option.textContent = entry.label;
+      fallbackSelect.appendChild(option);
+    });
+  }
 
-  wrapper.querySelectorAll("input[name^='court_']").forEach(el => el.remove());
+  // ZIP code logic
+  zipInput.addEventListener("blur", () => {
+    const zip = zipInput.value;
 
-  const hiddenInputs = `
-    <input type="hidden" name="court_district" value="${court.district}">
-    <input type="hidden" name="court_name" value="${court.court_name}">
-    <input type="hidden" name="court_location" value="${court.location}">
-  `;
+    if (courtMap[zip]) {
+      const court = courtMap[zip];
+      infoBox.innerHTML = `
+        <strong>Filing District:</strong> ${court.court_name}<br>
+        <strong>Location:</strong> ${court.location}<br>
+        <strong>Website:</strong> <a href="${court.website}" target="_blank">${court.website}</a>
+      `;
 
-  wrapper.insertAdjacentHTML("beforeend", hiddenInputs);
-} else {
-  displayDiv.innerHTML = `
-    <em>ZIP code not recognized — please select the closest federal court below.</em>
-  `;
-}
+      wrapper.querySelectorAll("input[name^='court_']").forEach(el => el.remove());
+
+      const hiddenInputs = `
+        <input type="hidden" name="court_district" value="${court.district}">
+        <input type="hidden" name="court_name" value="${court.court_name}">
+        <input type="hidden" name="court_location" value="${court.location}">
+      `;
+      wrapper.insertAdjacentHTML("beforeend", hiddenInputs);
+    } else {
+      infoBox.innerHTML = `
+        <em>ZIP code not recognized — please select the closest federal court below.</em>
+      `;
+    }
   });
 });
 </script>
