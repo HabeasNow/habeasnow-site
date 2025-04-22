@@ -30,8 +30,145 @@
     </section>
 
     <section class="content">
-      <form id="qtef-form">
-        <!-- All form inputs here -->
+         <form id="qtef-form">
+        <h3>1. Who is Being Detained?</h3>
+        <label>Full Name: <input type="text" name="detainee_name" required></label><br>
+        <label>Date of Birth: <input type="date" name="detainee_dob"></label><br>
+        <label>Citizenship Status:
+          <select name="citizenship">
+            <option value="us">U.S. Citizen</option>
+            <option value="green_card">Green Card Holder</option>
+            <option value="other">Other</option>
+          </select>
+        </label><br>
+        <label>Has this person been charged?
+          <select name="charged">
+            <option value="no">No</option>
+            <option value="unsure">Unsure</option>
+            <option value="yes">Yes</option>
+          </select>
+        </label><br>
+
+        <h3>2. When and where were they last seen?</h3>
+        <label>Date of Seizure or Last Contact: <input type="date" name="last_seen_date"></label><br>
+        <label>Last Known Location: <input type="text" name="last_location" required></label><br>
+        <label>ZIP Code of Seizure or Last Known Location: <input type="text" name="zip_code" id="zip_code" pattern="\d{5}" required></label><br>
+        <div id="court-info-wrapper" style="margin-top: 0.5em;"><div id="court-info"></div></div>
+        <label>If you don’t know the ZIP code or it wasn't recognized, select the nearest court:
+          <select name="fallback_district" id="fallback-district-select">
+            <option value="">Choose a federal district court...</option>
+          </select>
+        </label><br>
+        <label><input type="checkbox" id="foreign_seizure" name="foreign_seizure"> The seizure occurred at a U.S. embassy or outside the United States.</label><br>
+        <label>Who Seized Them?
+          <select name="arresting_agency">
+            <option value="federal">Federal agents (FBI, DHS, etc.)</option>
+            <option value="local">Local police</option>
+            <option value="foreign">Foreign agents</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </label><br>
+        <label>Do you believe they were transferred?
+          <select name="transferred">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="unsure">Unsure</option>
+          </select>
+        </label><br>
+        <label>If yes, where? <input type="text" name="transfer_location"></label><br>
+
+        <h3>3. Risk of Removal</h3>
+        <label>Are they at risk of removal from the U.S. or U.S. control?
+          <select name="removal_risk">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="unsure">Unsure</option>
+          </select>
+        </label><br>
+        <label>Can they currently communicate with anyone?
+          <select name="communication_possible">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </label><br>
+
+        <h3>4. Who Are You?</h3>
+        <label>Your Full Name: <input type="text" name="filer_name" required></label><br>
+        <label>Relationship:
+          <select name="relationship">
+            <option value="family">Family member</option>
+            <option value="friend">Friend</option>
+            <option value="attorney">Attorney</option>
+            <option value="advocate">Advocate</option>
+          </select>
+        </label><br>
+        <label>Email: <input type="email" name="email" required></label><br>
+        <label>Phone: <input type="tel" name="phone"></label><br>
+        <label>Address: <input type="text" name="address"></label><br>
+        <label>Are you filing because the detainee cannot?
+          <select name="next_friend_basis">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="missing">They are missing / incommunicado</option>
+            <option value="attorney">I am their legal representative</option>
+          </select>
+        </label><br>
+
+        <h3>5. Legal Grounds for Relief</h3>
+        <p><em>Please review and check all statements that apply. These are grouped by role to guide your selections.</em></p>
+
+        <fieldset>
+          <legend>👪 <strong>Family Member / Friend:</strong></legend>
+          <label><input type="checkbox" name="grounds_family[]" value="1"> My family member is a U.S. citizen who has been detained without charges or judicial review...</label><br>
+          <label><input type="checkbox" name="grounds_family[]" value="2"> They have not had access to a lawyer, a hearing before a judge...</label><br>
+          <label><input type="checkbox" name="grounds_family[]" value="3"> I believe this violates their constitutional rights...</label><br>
+          <label><input type="checkbox" name="grounds_family[]" value="4"> I am concerned that their detention conditions...</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>⚖️ <strong>Attorney:</strong></legend>
+          <label><input type="checkbox" name="grounds_attorney[]" value="1"> My client has been detained or transferred abroad without indictment...</label><br>
+          <label><input type="checkbox" name="grounds_attorney[]" value="2"> This detention violates their Fifth Amendment right...</label><br>
+          <label><input type="checkbox" name="grounds_attorney[]" value="3"> No statutory or constitutional authority exists...</label><br>
+          <label><input type="checkbox" name="grounds_attorney[]" value="4"> The conditions of confinement may violate...</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>🕊️ <strong>Third-Party Advocate:</strong></legend>
+          <label><input type="checkbox" name="grounds_advocate[]" value="1"> I have credible and specific information...</label><br>
+          <label><input type="checkbox" name="grounds_advocate[]" value="2"> I believe the government is denying them access to the courts...</label><br>
+          <label><input type="checkbox" name="grounds_advocate[]" value="3"> I respectfully request that the Court intervene...</label>
+        </fieldset>
+
+        <h3>6. Relief Requested</h3>
+        <fieldset>
+          <legend>👪 <strong>Family Member / Friend:</strong></legend>
+          <label><input type="checkbox" name="relief_family[]" value="1"> Issue an emergency writ of habeas corpus...</label><br>
+          <label><input type="checkbox" name="relief_family[]" value="2"> Request an immediate injunction...</label><br>
+          <label><input type="checkbox" name="relief_family[]" value="3"> Seek judicial declaration...</label><br>
+          <label><input type="checkbox" name="relief_family[]" value="4"> Urge the court to mandate communication access...</label><br>
+          <label><input type="checkbox" name="relief_family[]" value="5"> Ask for expedited hearing...</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>⚖️ <strong>Attorney:</strong></legend>
+          <label><input type="checkbox" name="relief_attorney[]" value="1"> Compel return to U.S. jurisdiction...</label><br>
+          <label><input type="checkbox" name="relief_attorney[]" value="2"> Declare executive policy unconstitutional...</label><br>
+          <label><input type="checkbox" name="relief_attorney[]" value="3"> Grant injunctive relief...</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>🕊️ <strong>Third-Party Advocate:</strong></legend>
+          <label><input type="checkbox" name="relief_advocate[]" value="1"> Preserve access to the U.S. legal system...</label><br>
+          <label><input type="checkbox" name="relief_advocate[]" value="2"> Request immediate court review...</label>
+        </fieldset>
+
+        <h3>7. Declaration</h3>
+        <label><input type="checkbox" name="declaration" required> I declare under penalty of perjury that the above is true...</label><br>
+        <label>Digital Signature: <input type="text" name="signature" required></label><br>
+        <label>Date: <input type="date" name="signature_date"></label><br><br>
+
         <button type="submit">Submit and Generate Emergency Filings</button>
       </form>
 
