@@ -185,6 +185,42 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
+  <script>
+    const form = document.getElementById("qtef-form");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+ // 🔽 Add this fallback injection block here:
+  const existingCourtFields = form.querySelectorAll('input[name="court_district"]');
+  if (existingCourtFields.length === 0) {
+    const fallbackSelect = document.getElementById("fallback-district-select");
+    const selectedOption = fallbackSelect.options[fallbackSelect.selectedIndex];
+
+    if (selectedOption && selectedOption.value !== "") {
+      const [districtName, cityStateZip] = selectedOption.textContent.split(" – ");
+      const hiddenFieldsHTML = `
+        <input type="hidden" name="court_district" value="${districtName}">
+        <input type="hidden" name="court_name" value="U.S. District Court for the ${districtName}">
+        <input type="hidden" name="court_location" value="${cityStateZip}">
+      `;
+      const wrapper = document.getElementById("court-info-wrapper");
+      wrapper.insertAdjacentHTML("beforeend", hiddenFieldsHTML);
+    }
+  }
+      const formData = new FormData(form);
+      const get = (name) => formData.get(name) || "<em>Not provided</em>";
+      const getAll = (name) => formData.getAll(name) || [];
+
+      const preview = document.createElement("section");
+      preview.id = "preview";
+      preview.innerHTML = `
+        <h2>📋 Preview Your Emergency Filing</h2>
+        <h3>1. Who is Being Detained?</h3>
+        <p><strong>Full Name:</strong> ${get("detainee_name")}<br>
+        <strong>Date of Birth:</strong> ${get("detainee_dob")}<br>
+        <strong>Citizenship:</strong> ${get("citizenship")}<br>
+        <strong>Charged:</strong> ${get("charged")}</p>
+
       const formData = new FormData(form);
       const get = (name) => formData.get(name) || "<em>Not provided</em>";
       const getAll = (name) => formData.getAll(name) || [];
